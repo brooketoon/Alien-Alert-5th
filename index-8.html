@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alien Alert: The Green Hair Mystery | Stories in Science</title>
+<meta name="description" content="Stories in Science — Arizona Grade 5 investigation (5.L4U3.12). Students construct an argument that an inherited characteristic can be affected by behavior and environmental conditions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   ALIEN ALERT: THE GREEN HAIR MYSTERY
+   Stories in Science Framework — Arizona Grade 5 — 5.L4U3.12
+   (c) 2026 Brooke Toon. All rights reserved.
+   Single-file lesson: HTML + CSS + JS. No build step, no framework.
+   Response Mode engine: one shared component renders Build or Write per prompt.
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------- */
+:root{
+  --midnight:#372A6E;      --midnight-dark:#281E52;  --midnight-light:#ECE9F6;
+  --teal:#1BA398;          --teal-dark:#137268;      --teal-light:#E1F5F1;
+  --purple:#D14E8C;        --purple-dark:#A63368;    --purple-light:#FCE7F0;
+  --gold:#F6B23A;          --gold-dark:#A9740A;      --gold-light:#FFF3D6;
+  --sea:#5FA98E;           --sea-dark:#3F7D66;       --sea-light:#E7F2EC; /* Lyra's tint motif — never used for "correct" */
+  --cream:#FBF6EC;         --page-bg:#F1ECE1;        --ink:#1C2333;       --white:#FFFFFF;
+  --gray-50:#F8F9FB;  --gray-100:#EFF1F5;  --gray-200:#E1E5EC;  --gray-300:#C9CFDA;
+  --gray-400:#8B93A3;  --gray-600:#565E6E;  --gray-700:#3B4351;  --gray-800:#262D3A;
+
+  --font:'Lexend','Segoe UI',Roboto,-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  --display:'Fredoka','Lexend','Segoe UI',sans-serif;
+
+  --radius:16px; --radius-sm:10px;
+  --shadow-sm:0 1px 3px rgba(40,30,82,.09);
+  --shadow:0 4px 16px rgba(40,30,82,.12);
+  --shadow-lg:0 12px 36px rgba(40,30,82,.20);
+
+  --header-h:96px; --tracker-h:0px;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{
+  font-size:18px; -webkit-text-size-adjust:100%;
+  scroll-padding-top:calc(var(--header-h) + var(--tracker-h) + 14px);
+}
+body{
+  margin:0; font-family:var(--font); color:var(--ink); background:var(--page-bg);
+  line-height:1.65; font-size:1rem; overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.2;margin:0 0 .5em;font-weight:600;letter-spacing:.01em;}
+p{margin:0 0 1em;} p:last-child{margin-bottom:0;}
+img{max-width:100%;}
+a{color:var(--teal-dark);}
+
+/* ---------- 2. ACCESSIBILITY PRIMITIVES ---------- */
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+.skip-link{position:absolute;left:8px;top:-60px;z-index:400;background:var(--purple);color:#fff;padding:10px 18px;border-radius:0 0 10px 10px;font-weight:700;text-decoration:none;transition:top .15s;}
+.skip-link:focus{top:0;}
+:focus-visible{outline:3px solid var(--gold-dark);outline-offset:2px;border-radius:5px;}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}
+}
+
+/* ---------- 3. FIXED HEADER ---------- */
+.app-header{position:fixed;top:0;left:0;right:0;z-index:120;background:var(--midnight);color:#fff;box-shadow:0 2px 12px rgba(40,30,82,.30);}
+.app-header__inner{max-width:1180px;margin:0 auto;padding:9px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;}
+.brand-pill{background:var(--gold);color:#3A2405;font-weight:700;font-size:.62rem;letter-spacing:.09em;text-transform:uppercase;padding:5px 10px;border-radius:999px;white-space:nowrap;font-family:var(--font);}
+.brand-text{display:flex;flex-direction:column;min-width:0;}
+.brand-series{font-size:.62rem;letter-spacing:.11em;text-transform:uppercase;color:#B9C6E4;font-weight:600;}
+.brand-title{font-size:.95rem;font-weight:600;line-height:1.15;font-family:var(--display);}
+.header-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+.code-chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.32);color:#fff;font-size:.62rem;letter-spacing:.05em;padding:5px 9px;border-radius:8px;font-family:var(--font);white-space:nowrap;}
+.code-chip b{letter-spacing:.12em;}
+.hbtn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.30);color:#fff;font-family:var(--font);font-weight:600;font-size:.72rem;padding:7px 11px;border-radius:9px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;}
+.hbtn:hover{background:rgba(255,255,255,.22);}
+.hbtn--gold{background:var(--gold);color:#3A2405;border-color:var(--gold);}
+.hbtn--gold:hover{background:#f7c14f;}
+.progress-track{height:5px;background:var(--midnight-dark);}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--gold));transition:width .4s ease;}
+
+/* ---------- 4. DECISION TRACKER ---------- */
+.tracker{position:fixed;left:0;right:0;z-index:110;top:var(--header-h);background:var(--cream);border-bottom:1px solid var(--gray-200);box-shadow:0 3px 10px rgba(40,30,82,.06);transform:translateY(-120%);transition:transform .25s;pointer-events:none;}
+.tracker.is-visible{transform:translateY(0);pointer-events:auto;}
+.tracker__inner{max-width:1180px;margin:0 auto;padding:8px 14px;display:flex;gap:10px;flex-wrap:wrap;}
+.tstep{flex:1 1 200px;display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--gray-200);border-radius:10px;padding:6px 11px;}
+.tstep__num{width:24px;height:24px;border-radius:50%;background:var(--gray-200);color:var(--gray-600);font-weight:700;font-size:.72rem;display:flex;align-items:center;justify-content:center;flex:none;}
+.tstep.is-set .tstep__num{background:var(--teal);color:#fff;}
+.tstep__label{font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-600);font-weight:700;}
+.tstep__value{font-size:.82rem;font-weight:600;color:var(--midnight);}
+.tstep:not(.is-set) .tstep__value{color:var(--gray-400);font-weight:500;font-style:italic;}
+
+/* ---------- 5. LAYOUT ---------- */
+main{padding-top:calc(var(--header-h) + 20px);padding-bottom:60px;transition:padding-top .2s;}
+body.tracker-on main{padding-top:calc(var(--header-h) + var(--tracker-h) + 20px);}
+.container{max-width:940px;margin:0 auto;padding:0 16px;}
+.section{display:none;}
+.section.active{display:block;animation:fade .3s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+.eyebrow{font-family:var(--font);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--teal-dark);margin:0 0 6px;}
+.eyebrow--purple{color:var(--purple-dark);}
+.eyebrow--gold{color:var(--gold-dark);}
+.page-title{font-size:1.7rem;color:var(--midnight);margin:0 0 4px;}
+.page-lead{font-size:1.05rem;color:var(--gray-700);margin:0 0 18px;}
+
+/* ---------- 6. CARDS ---------- */
+.card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-sm);margin-bottom:18px;}
+.card--pad-lg{padding:26px 26px 24px;}
+.card--notebook{background:var(--cream);border-color:#E7DECB;background-image:linear-gradient(var(--gray-100) 1px,transparent 1px);background-size:100% 2.1rem;background-position:0 2.6rem;}
+.card--tint{background:var(--sea-light);border-color:#CFE4D6;}
+.card--midnight{background:linear-gradient(150deg,var(--midnight),var(--midnight-dark));color:#fff;border:none;}
+.card--midnight .eyebrow{color:var(--gold);}
+.card--midnight h2,.card--midnight h3{color:#fff;}
+.helper{font-size:.92rem;color:var(--gray-600);}
+.callout{border-left:4px solid var(--purple);background:var(--purple-light);border-radius:0 10px 10px 0;padding:12px 15px;margin:14px 0;font-size:.94rem;}
+.callout--teal{border-left-color:var(--teal);background:var(--teal-light);}
+.callout--gold{border-left-color:var(--gold);background:var(--gold-light);}
+
+/* ---------- 7. BUTTONS ---------- */
+.btn{font-family:var(--font);font-weight:600;font-size:.95rem;border-radius:11px;padding:12px 22px;border:2px solid transparent;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;transition:transform .08s,box-shadow .15s,background .15s;line-height:1.2;}
+.btn:active{transform:translateY(1px);}
+.btn--primary{background:var(--teal);color:#fff;box-shadow:var(--shadow-sm);}
+.btn--primary:hover{background:var(--teal-dark);}
+.btn--purple{background:var(--purple);color:#fff;}
+.btn--purple:hover{background:var(--purple-dark);}
+.btn--gold{background:var(--gold);color:#3A2405;}
+.btn--gold:hover{background:#f7c14f;}
+.btn--ghost{background:#fff;color:var(--midnight);border-color:var(--gray-300);}
+.btn--ghost:hover{border-color:var(--teal);color:var(--teal-dark);}
+.btn--lg{font-size:1.08rem;padding:15px 30px;}
+.btn:disabled,.btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed;box-shadow:none;transform:none;}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px;}
+.btn-row--split{justify-content:space-between;}
+.gate-note{font-size:.82rem;color:var(--gray-600);font-style:italic;flex-basis:100%;margin-top:2px;}
+.btn-back{background:none;border:none;color:var(--gray-600);font-family:var(--font);font-weight:600;font-size:.9rem;cursor:pointer;padding:8px 6px;display:inline-flex;align-items:center;gap:5px;}
+.btn-back:hover{color:var(--midnight);}
+.btn-back:disabled{opacity:.35;cursor:not-allowed;}
+
+/* ---------- 8. NARRATIVE ---------- */
+.narr{font-size:1.06rem;line-height:1.7;}
+.narr p{margin:0 0 .85em;}
+.dialogue{display:flex;gap:10px;margin:0 0 .7em;align-items:flex-start;}
+.dialogue__who{font-weight:700;color:var(--purple-dark);flex:none;min-width:44px;}
+.dialogue--lyra .dialogue__who{color:var(--teal-dark);}
+.thought{font-style:italic;color:var(--gray-600);border-left:3px dashed var(--gray-300);padding-left:14px;margin:0 0 .85em;}
+.tts-btn{background:var(--gray-100);border:1px solid var(--gray-200);color:var(--gray-700);font-family:var(--font);font-weight:600;font-size:.76rem;border-radius:999px;padding:5px 13px;cursor:pointer;display:inline-flex;gap:6px;align-items:center;margin-bottom:12px;}
+.tts-btn:hover{border-color:var(--teal);color:var(--teal-dark);}
+.tts-btn.is-playing{background:var(--teal-light);border-color:var(--teal);color:var(--teal-dark);}
+
+/* ---------- 9. ASSET PLACEHOLDER ---------- */
+.asset{position:relative;display:block;width:100%;border-radius:12px;overflow:hidden;background:var(--gray-100);border:1px solid var(--gray-200);}
+.asset img{display:block;width:100%;height:100%;object-fit:cover;}
+.asset--wide{aspect-ratio:16/9;}
+.asset--portrait{aspect-ratio:1/1;}
+.asset--tall{aspect-ratio:4/5;}
+.asset.is-pending img{opacity:0;}
+.asset__ph{display:none;}
+.asset.is-pending .asset__ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:12px;text-align:center;background:repeating-linear-gradient(45deg,var(--gray-100),var(--gray-100) 11px,var(--gray-50) 11px,var(--gray-50) 22px);}
+.asset__ph-icon{font-size:1.5rem;opacity:.6;}
+.asset__ph-label{font-size:.64rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-600);}
+.asset__ph-path{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.58rem;color:var(--gray-400);word-break:break-all;max-width:90%;}
+.asset__cap{font-size:.78rem;color:var(--gray-600);margin:6px 2px 0;font-style:italic;}
+
+/* ---------- 10. CHOICE CARDS (decision points) ---------- */
+.dp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px;}
+.dp-card{text-align:left;background:#fff;border:2px solid var(--gray-200);border-radius:var(--radius);padding:20px;cursor:pointer;font-family:var(--font);transition:border-color .15s,box-shadow .15s,transform .08s;display:flex;flex-direction:column;gap:8px;}
+.dp-card:hover{border-color:var(--teal);box-shadow:var(--shadow);}
+.dp-card:active{transform:translateY(1px);}
+.dp-card__icon{font-size:1.7rem;}
+.dp-card__img{width:48px;height:48px;object-fit:contain;border-radius:8px;display:inline-block;}
+.dp-card__title{font-family:var(--display);font-weight:600;font-size:1.12rem;color:var(--midnight);}
+.dp-card__desc{font-size:.9rem;color:var(--gray-600);}
+.dp-card__go{margin-top:auto;font-weight:700;font-size:.82rem;color:var(--teal-dark);}
+
+
+/* ---------- 12. RESPONSE BUILDER ---------- */
+.resp{border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;background:#fff;margin:16px 0 4px;}
+.resp__head{background:var(--midnight-light);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.resp__prompt{font-weight:600;color:var(--midnight);font-size:.98rem;margin:0;flex:1 1 260px;}
+.resp__mode-tag{font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--purple-dark);background:#fff;border:1px solid #F2C7DC;border-radius:999px;padding:3px 10px;white-space:nowrap;}
+.resp__body{padding:16px;}
+.resp__section{margin-bottom:16px;}
+.resp__section-label{font-weight:600;color:var(--midnight);font-size:.92rem;margin:0 0 8px;}
+.opt{display:block;width:100%;text-align:left;background:var(--gray-50);border:2px solid var(--gray-200);border-radius:11px;padding:11px 14px 11px 42px;position:relative;cursor:pointer;font-family:var(--font);font-size:.92rem;color:var(--ink);margin-bottom:8px;transition:border-color .12s,background .12s;}
+.opt:hover{border-color:var(--teal);}
+.opt__mark{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;border:2px solid var(--gray-300);background:#fff;}
+.opt.is-selected{border-color:var(--teal);background:var(--teal-light);}
+.opt.is-selected .opt__mark{border-color:var(--teal);background:var(--teal);}
+.opt.is-selected .opt__mark::after{content:"";position:absolute;left:4px;top:1px;width:6px;height:11px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);}
+.opt input{position:absolute;opacity:0;width:1px;height:1px;}
+.resp-tray{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.resp-tray .asset{width:92px;flex:none;}
+.resp-tray .asset--portrait{width:78px;}
+.preview{background:var(--cream);border:1px dashed var(--sea);border-radius:11px;padding:14px 16px;margin-top:6px;background-image:linear-gradient(var(--gray-100) 1px,transparent 1px);background-size:100% 1.9rem;background-position:0 2.2rem;}
+.preview__label{font-size:.62rem;letter-spacing:.11em;text-transform:uppercase;font-weight:700;color:var(--sea-dark);margin:0 0 5px;}
+.preview__text{margin:0;font-size:.98rem;line-height:1.65;color:var(--ink);min-height:1.6em;}
+.preview__text.is-empty{color:var(--gray-400);font-style:italic;}
+.resp textarea{width:100%;border:2px solid var(--gray-200);border-radius:11px;padding:12px 14px;font-family:var(--font);font-size:.98rem;line-height:1.6;color:var(--ink);resize:vertical;min-height:120px;}
+.resp textarea:focus-visible{border-color:var(--teal);outline:none;box-shadow:0 0 0 3px var(--teal-light);}
+.resp__actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px;}
+.linkbtn{background:none;border:none;color:var(--teal-dark);font-family:var(--font);font-weight:600;font-size:.86rem;cursor:pointer;text-decoration:underline;padding:6px 2px;}
+.linkbtn:hover{color:var(--teal);}
+.save-flag{font-size:.8rem;font-weight:700;color:var(--sea-dark);opacity:0;transition:opacity .2s;margin:0;}
+.save-flag.is-on{opacity:1;}
+.edit-notice{font-size:.84rem;color:var(--gold-dark);background:var(--gold-light);border-radius:8px;padding:7px 11px;margin:10px 0 0;}
+.draft-drawer{border:1px solid var(--gray-200);border-radius:10px;margin-top:12px;background:var(--gray-50);}
+.draft-drawer summary{cursor:pointer;font-weight:600;font-size:.86rem;color:var(--gray-700);padding:10px 13px;}
+.draft-drawer .draft-body{padding:0 13px 12px;font-size:.9rem;color:var(--gray-700);white-space:pre-wrap;}
+
+/* ---------- 13. TABLES / STRIPS / TESTS ---------- */
+.table-scroll{overflow-x:auto;margin:12px 0;}
+table.data{border-collapse:collapse;width:100%;font-size:.88rem;min-width:440px;}
+table.data th,table.data td{border:1px solid var(--gray-200);padding:9px 11px;text-align:left;vertical-align:middle;}
+table.data thead th{background:var(--midnight);color:#fff;font-family:var(--font);font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;font-weight:600;}
+table.data tbody tr:nth-child(even){background:var(--gray-50);}
+table.data .flag{font-weight:700;color:var(--sea-dark);}
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0;}
+.strip__panel{border:1px solid var(--gray-200);border-radius:12px;overflow:hidden;background:#fff;}
+.strip__cap{padding:8px 10px;font-size:.8rem;font-weight:600;color:var(--midnight);text-align:center;}
+.test-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0;}
+.test-col{border:1px solid var(--gray-200);border-radius:12px;padding:14px;background:#fff;text-align:center;}
+.test-col__swatch{height:64px;border-radius:9px;margin-bottom:10px;border:1px solid var(--gray-200);}
+.test-col__title{font-weight:600;font-size:.86rem;color:var(--midnight);margin:0 0 4px;}
+.test-col__result{font-size:.82rem;color:var(--gray-600);margin:0;min-height:2.4em;}
+.test-col.is-hidden .test-col__result{visibility:hidden;}
+.portrait-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:12px 0;}
+.portrait-card{border:1px solid var(--gray-200);border-radius:12px;overflow:hidden;background:#fff;}
+.portrait-card__cap{padding:8px 10px;}
+.portrait-card__name{font-weight:600;font-size:.86rem;color:var(--midnight);display:block;}
+.portrait-card__meta{font-size:.74rem;color:var(--gray-600);display:block;}
+
+/* ---------- 14. SEQUENCE / CLASSIFY ---------- */
+.seq{list-style:none;padding:0;margin:12px 0;display:flex;flex-direction:column;gap:8px;}
+.seq__item{display:flex;align-items:center;gap:10px;background:#fff;border:2px solid var(--gray-200);border-radius:11px;padding:10px 12px;}
+.seq__num{width:26px;height:26px;border-radius:50%;background:var(--purple);color:#fff;font-weight:700;font-size:.8rem;display:flex;align-items:center;justify-content:center;flex:none;}
+.seq__text{flex:1;font-size:.9rem;}
+.seq__moves{display:flex;gap:4px;}
+.seq__moves button{width:30px;height:30px;border:1px solid var(--gray-300);background:var(--gray-50);border-radius:7px;cursor:pointer;font-size:.9rem;color:var(--gray-700);}
+.seq__moves button:disabled{opacity:.3;cursor:not-allowed;}
+.classify-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:12px 0;}
+.classify-zone{border:2px dashed var(--gray-300);border-radius:12px;padding:12px;background:var(--gray-50);}
+.classify-zone__title{font-weight:600;font-size:.86rem;color:var(--midnight);margin:0 0 8px;display:flex;gap:6px;align-items:center;}
+.classify-item{width:100%;text-align:left;background:#fff;border:2px solid var(--gray-200);border-radius:9px;padding:9px 11px;margin-bottom:7px;cursor:pointer;font-family:var(--font);font-size:.86rem;}
+.classify-item:hover{border-color:var(--teal);}
+.classify-item.is-placed{border-color:var(--teal);background:var(--teal-light);}
+.chip-choices{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.chip-choices button{border:1px solid var(--gray-300);background:#fff;border-radius:999px;padding:4px 11px;font-size:.76rem;font-family:var(--font);cursor:pointer;color:var(--gray-700);}
+.chip-choices button.is-on{background:var(--teal);border-color:var(--teal);color:#fff;}
+
+/* ---------- 15. FEEDBACK ---------- */
+.fb{border-radius:11px;padding:12px 15px;margin-top:10px;font-size:.92rem;border-left:4px solid var(--gray-300);background:var(--gray-50);}
+.fb--ok{border-left-color:var(--sea);background:var(--sea-light);}
+.fb--info{border-left-color:var(--teal);background:var(--teal-light);}
+.fb--rethink{border-left-color:var(--gold);background:var(--gold-light);}
+
+/* ---------- 16. JOURNAL DRAWER ---------- */
+.drawer-backdrop{position:fixed;inset:0;background:rgba(40,30,82,.45);z-index:200;opacity:0;pointer-events:none;transition:opacity .2s;}
+.drawer-backdrop.is-open{opacity:1;pointer-events:auto;}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,92vw);background:var(--page-bg);z-index:210;transform:translateX(100%);transition:transform .25s;box-shadow:var(--shadow-lg);display:flex;flex-direction:column;}
+.drawer.is-open{transform:none;}
+.drawer__head{background:var(--midnight);color:#fff;padding:16px;display:flex;align-items:center;justify-content:space-between;}
+.drawer__head h2{margin:0;font-size:1.1rem;color:#fff;}
+.drawer__body{padding:16px;overflow-y:auto;flex:1;}
+.drawer__x{background:rgba(255,255,255,.15);border:none;color:#fff;width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:1.1rem;}
+.jrow{background:#fff;border:1px solid var(--gray-200);border-radius:11px;padding:12px 14px;margin-bottom:11px;}
+.jrow__prompt{font-size:.8rem;font-weight:600;color:var(--purple-dark);margin:0 0 5px;}
+.jrow__resp{font-size:.9rem;color:var(--gray-700);margin:0;white-space:pre-wrap;}
+.jrow__resp.is-empty{color:var(--gray-400);font-style:italic;}
+.jrow__tag{display:inline-block;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--teal-dark);background:var(--teal-light);border-radius:999px;padding:2px 9px;margin-top:7px;}
+
+/* ---------- 17. MODALS ---------- */
+.modal-overlay{position:fixed;inset:0;background:rgba(40,30,82,.5);z-index:300;display:none;align-items:center;justify-content:center;padding:18px;}
+.modal-overlay.is-open{display:flex;}
+.modal{background:#fff;border-radius:var(--radius);max-width:520px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);}
+.modal__head{padding:18px 22px;border-bottom:1px solid var(--gray-200);display:flex;align-items:center;justify-content:space-between;}
+.modal__head h2{margin:0;font-size:1.2rem;color:var(--midnight);}
+.modal__body{padding:20px 22px;}
+.modal__x{background:var(--gray-100);border:none;width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:1.1rem;color:var(--gray-700);}
+.field-label{font-size:.82rem;font-weight:600;color:var(--gray-700);display:block;margin:0 0 6px;}
+.text-input{width:100%;border:2px solid var(--gray-200);border-radius:10px;padding:11px 13px;font-family:var(--font);font-size:.98rem;}
+.text-input:focus-visible{border-color:var(--teal);outline:none;}
+.gloss-term{border-bottom:1px dotted var(--gray-200);padding:11px 0;}
+.gloss-term:last-child{border-bottom:none;}
+.gloss-term dt{font-weight:700;color:var(--purple-dark);font-size:.94rem;}
+.gloss-term dd{margin:3px 0 0;font-size:.9rem;color:var(--gray-700);}
+
+/* ---------- 18. BADGE ---------- */
+.badge{width:150px;height:150px;border-radius:50%;background:var(--gold-light);border:4px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:3px;margin:0 auto 10px;box-shadow:var(--shadow);}
+.badge__mark{font-size:1.9rem;}
+.badge__title{font-family:var(--display);font-weight:700;font-size:.95rem;color:var(--gold-dark);}
+.badge__sub{font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--gold-dark);}
+
+/* ---------- 19. QUIZ ---------- */
+.seg{display:inline-flex;border:2px solid var(--gray-300);border-radius:999px;overflow:hidden;}
+.seg button{border:none;background:#fff;font-family:var(--font);font-weight:600;font-size:.9rem;padding:9px 22px;cursor:pointer;color:var(--gray-700);}
+.seg button.is-on{background:var(--teal);color:#fff;}
+.quiz-q{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:18px 20px;margin-bottom:14px;}
+.quiz-q__stem{font-weight:600;color:var(--midnight);margin:0 0 4px;}
+.quiz-q__num{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--gray-400);margin:0 0 6px;}
+.quiz-q .opt.is-correct{border-color:var(--sea);background:var(--sea-light);}
+.quiz-q .opt.is-wrong{border-color:var(--gold-dark);background:var(--gold-light);}
+.quiz-score{font-family:var(--display);font-weight:700;font-size:1.4rem;color:var(--midnight);}
+
+/* ---------- 20. FOOTER ---------- */
+.foot{max-width:940px;margin:34px auto 0;padding:0 16px;font-size:.74rem;color:var(--gray-600);line-height:1.55;text-align:center;}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--midnight);color:#fff;padding:12px 20px;border-radius:11px;box-shadow:var(--shadow-lg);z-index:400;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;font-size:.92rem;max-width:90vw;}
+.toast.is-on{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ---------- 21. RESPONSIVE ---------- */
+@media (max-width:720px){
+  html{font-size:17px;}
+  .dp-grid,.strip,.test-cols{grid-template-columns:1fr;}
+  .page-title{font-size:1.45rem;}
+  .btn-row--split{flex-direction:column-reverse;align-items:stretch;}
+  .btn-row--split .btn{justify-content:center;}
+}
+
+/* ---------- 22. PRINT ---------- */
+@media print{
+  .app-header,.tracker,.btn-row,.drawer,.drawer-backdrop,.tts-btn,.toast{display:none!important;}
+  main{padding-top:0;}
+  .section{display:block!important;}
+}
+
+/* ---------- 23. LAUNCH / OBJECTIVES (Eco-Responders–style opening) ---------- */
+.launch-path{margin-bottom:20px;}
+.launch-path__title{font-family:var(--display);font-weight:600;color:var(--teal-dark);font-size:1rem;margin:0 0 8px;display:flex;align-items:center;gap:8px;}
+.path-inline{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;background:#fff;border:1px solid var(--gray-200);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow-sm);}
+.path-inline .tstep{flex:1 1 200px;margin:0;}
+.path-arrow{display:flex;align-items:center;color:var(--gray-300);font-weight:700;font-size:1.1rem;}
+.collapse{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);box-shadow:var(--shadow-sm);margin-bottom:18px;overflow:hidden;}
+.collapse>summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:var(--display);font-weight:600;color:var(--midnight);font-size:1.05rem;background:var(--gray-50);}
+.collapse>summary::-webkit-details-marker{display:none;}
+.collapse>summary::after{content:"\25BE";color:var(--gray-400);transition:transform .2s;}
+.collapse[open]>summary::after{transform:rotate(180deg);}
+.collapse__body{padding:18px 20px;}
+.collapse__intro{color:var(--gray-700);font-size:.98rem;border-bottom:1px solid var(--gray-200);padding-bottom:14px;margin:0 0 14px;}
+.sec-label{font-family:var(--font);font-size:.62rem;letter-spacing:.11em;text-transform:uppercase;font-weight:700;color:var(--purple-dark);margin:6px 0 8px;}
+.obj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 6px;}
+.obj-card{background:var(--midnight-light);border:1px solid var(--gray-200);border-radius:12px;padding:14px;}
+.obj-num{width:26px;height:26px;border-radius:50%;background:var(--midnight);color:#fff;font-weight:700;font-size:.82rem;display:flex;align-items:center;justify-content:center;margin-bottom:9px;}
+.obj-card p{margin:0;font-size:.88rem;color:var(--gray-700);line-height:1.5;}
+.std-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 6px;}
+.std-col{border:1px solid var(--gray-200);border-radius:12px;padding:14px;background:#fff;}
+.std-col__h{font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--teal-dark);margin:0 0 7px;display:flex;gap:6px;align-items:center;}
+.std-col p{margin:0;font-size:.84rem;color:var(--gray-700);line-height:1.5;}
+.std-col b{color:var(--midnight);}
+@media (max-width:720px){ .obj-grid,.std-grid{grid-template-columns:1fr;} .path-inline{flex-direction:column;} .path-arrow{display:none;} }
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to lesson content</a>
+<div id="liveRegion" class="visually-hidden" aria-live="polite" role="status"></div>
+
+<!-- ============================= FIXED HEADER ============================= -->
+<header class="app-header" id="appHeader">
+  <div class="app-header__inner">
+    <div class="brand">
+      <span class="brand-pill">Genetica Club</span>
+      <span class="brand-text">
+        <span class="brand-series">Stories in Science · Grade 5</span>
+        <span class="brand-title">Alien Alert: The Green Hair Mystery</span>
+      </span>
+    </div>
+    <div class="header-actions">
+      <span class="code-chip" id="codeChip" hidden>Case code <b id="codeChipVal">—</b></span>
+      <button class="hbtn" id="glossaryBtn" type="button" aria-haspopup="dialog">📖 Glossary</button>
+      <button class="hbtn" id="journalBtn" type="button" aria-haspopup="dialog">📓 Journal</button>
+      <button class="hbtn hbtn--gold" id="restartBtn" type="button">↺ Restart</button>
+    </div>
+  </div>
+  <div class="progress-track"><div class="progress-bar" id="progressBar" role="progressbar" aria-label="Lesson progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div></div>
+</header>
+
+<!-- ============================ DECISION TRACKER ========================== -->
+<div class="tracker" id="tracker" aria-label="Your investigation choices">
+  <div class="tracker__inner">
+    <div class="tstep" id="tstep-1"><span class="tstep__num">1</span><span><span class="tstep__label">Evidence file</span><br><span class="tstep__value" id="tvalue-1">Awaiting your choice…</span></span></div>
+    <div class="tstep" id="tstep-2"><span class="tstep__num">2</span><span><span class="tstep__label">Deeper investigation</span><br><span class="tstep__value" id="tvalue-2">Awaiting your choice…</span></span></div>
+  </div>
+</div>
+
+<!-- ================================ MAIN ================================= -->
+<main id="main">
+  <div class="container">
+    <section class="section" id="section-0-launch" aria-label="Launch"></section>
+    <section class="section" id="section-1-breakfast" aria-label="Something strange at breakfast"></section>
+    <section class="section" id="section-2-genetica" aria-label="A Genetica investigation"></section>
+    <section class="section" id="section-3-dp1-choice" aria-label="Case 01 and Decision Point 1"></section>
+    <section class="section" id="section-4-dp1" aria-label="Decision Point 1 investigation"></section>
+    <section class="section" id="section-5-convergence1" aria-label="Two files, one pattern"></section>
+    <section class="section" id="section-6-dp2-choice" aria-label="Decision Point 2"></section>
+    <section class="section" id="section-7-dp2" aria-label="Decision Point 2 investigation"></section>
+    <section class="section" id="section-8-convergence2" aria-label="Solving the green hair mystery"></section>
+    <section class="section" id="section-9-application" aria-label="Lyra's swim plan"></section>
+    <section class="section" id="section-10-report" aria-label="Final investigation report"></section>
+    <section class="section" id="section-11-quiz" aria-label="Optional standards quiz"></section>
+    <section class="section" id="section-12-complete" aria-label="Case complete"></section>
+  </div>
+  <footer class="foot">
+    © 2026 Brooke Toon. All rights reserved. Part of the Stories in Science Framework.
+    Generative AI tools were used to support the development of this instructional material.
+    Aligned to Arizona Science Standard 5.L4U3.12.
+  </footer>
+</main>
+
+<!-- ============================ JOURNAL DRAWER =========================== -->
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<aside class="drawer" id="journalDrawer" role="dialog" aria-modal="true" aria-label="Investigation Journal" tabindex="-1">
+  <div class="drawer__head">
+    <h2>📓 Investigation Journal</h2>
+    <button class="drawer__x" id="drawerClose" type="button" aria-label="Close journal">✕</button>
+  </div>
+  <div class="drawer__body">
+    <div id="drawerEntries"></div>
+  </div>
+</aside>
+
+<!-- ================================ MODALS =============================== -->
+<div class="modal-overlay" id="glossaryModal" role="dialog" aria-modal="true" aria-labelledby="glossaryTitle">
+  <div class="modal">
+    <div class="modal__head"><h2 id="glossaryTitle">📖 Glossary</h2><button class="modal__x" data-close-modal="glossaryModal" type="button" aria-label="Close">✕</button></div>
+    <div class="modal__body"><dl id="glossaryList"></dl></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="restartModal" role="dialog" aria-modal="true" aria-labelledby="restartTitle">
+  <div class="modal">
+    <div class="modal__head"><h2 id="restartTitle">Restart the case?</h2><button class="modal__x" data-close-modal="restartModal" type="button" aria-label="Close">✕</button></div>
+    <div class="modal__body">
+      <p>This clears all of your saved work for this lesson and starts over from the beginning. This cannot be undone.</p>
+      <div class="btn-row"><button class="btn btn--ghost" data-close-modal="restartModal" type="button">Keep my work</button><button class="btn btn--gold" id="confirmRestart" type="button">Yes, restart</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="exportModal" role="dialog" aria-modal="true" aria-labelledby="exportTitle">
+  <div class="modal">
+    <div class="modal__head"><h2 id="exportTitle">Export your Investigation Journal</h2><button class="modal__x" data-close-modal="exportModal" type="button" aria-label="Close">✕</button></div>
+    <div class="modal__body">
+      <label class="field-label" for="exportNameInput">Name or student ID (optional)</label>
+      <input class="text-input" id="exportNameInput" type="text" placeholder="e.g. Room 12 · Student 4" autocomplete="off">
+      <p class="helper" style="margin:12px 0 0;">Your journal downloads as a styled web page you can open, print, or save as PDF.</p>
+      <div class="btn-row"><button class="btn btn--primary" id="confirmExport" type="button">⬇ Download journal</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+/* ==========================================================================
+   SECTION A — CONSTANTS, CONTENT DATA, RESPONSE-PROMPT CONFIG, STATE
+   ========================================================================== */
+var LESSON_ID = 'green-hair-mystery';
+var LESSON_VERSION = 'green-hair-v1';
+var STORAGE_KEY = 'sis_green_hair_mystery_v1';
+var AZ_STANDARD = '5.L4U3.12 — Construct an argument based on evidence that inherited characteristics can be affected by behavior and/or environmental conditions.';
+
+var SECTION_ORDER = [
+  'section-0-launch','section-1-breakfast','section-2-genetica',
+  'section-3-dp1-choice','section-4-dp1','section-5-convergence1','section-6-dp2-choice',
+  'section-7-dp2','section-8-convergence2','section-9-application','section-10-report',
+  'section-11-quiz','section-12-complete'
+];
+var SECTION_LABELS = {
+  'section-0-launch':'Launch',
+  'section-1-breakfast':'Something strange at breakfast','section-2-genetica':'A Genetica investigation',
+  'section-3-dp1-choice':'Case 01 — where should Finn begin?','section-4-dp1':'Gathering evidence',
+  'section-5-convergence1':'Two files, one pattern','section-6-dp2-choice':'A deeper investigation',
+  'section-7-dp2':'Testing the lead','section-8-convergence2':'Solving the green hair mystery',
+  'section-9-application':'Lyra\u2019s swim plan','section-10-report':'Final investigation report',
+  'section-11-quiz':'Optional standards quiz','section-12-complete':'Case complete'
+};
+
+/* ---------- IMAGE ASSETS ---------- */
+/* Images live in the repo's images/ folder. Change ASSET_BASE to '' if you move
+   index.html into the images folder, or to a full URL to host them elsewhere. */
+var ASSET_BASE = 'images/';
+var IMAGE_ASSETS = {
+  cover:'cover-alien-alert-green-hair-mystery.png',
+  breakfast:'scene-01-breakfast-green-hair.png',
+  alienOverlay:'overlay-finn-imagines-alien-lyra.png',
+  genetica:'scene-02-genetica-notebook-memory.png',
+  caseLaunch:'scene-03-case-launch-notebook.png',
+  notebookCover:'prop-genetica-notebook-cover.png',
+  logo:'logo-genetica-club.png',
+  iconFamily:'icon-family-evidence.png', iconRoutine:'icon-routine-evidence.png',
+  iconPool:'icon-pool-water-evidence.png', iconSwimmer:'icon-swimmer-pattern-evidence.png',
+  charFamily:'character-family-reference.png',
+  photo1:'family-photo-01-early-childhood.png',
+  photo2:'family-photo-02-two-years-ago.png',
+  photo3:'family-photo-03-end-of-school.png',
+  photo4:'family-photo-04-current-summer.png',
+  portraitParent1:'portrait-parent-1.png',
+  portraitParent2:'portrait-parent-2.png',
+  portraitFinn:'character-finn-reference.png',
+  portraitLyra:'character-lyra-reference.png',
+  timeline:'timeline-lyra-hair-weeks-1-3.png',
+  strandTest:'experiment-hair-strand-water-test.png',
+  copperDiagram:'diagram-copper-compounds-attach-to-hair.png',
+  swimmerFinn:'swimmer-finn.png', swimmerAva:'swimmer-ava.png', swimmerLyra:'swimmer-lyra.png',
+  swimmerMateo:'swimmer-mateo.png', swimmerNia:'swimmer-nia.png',
+  twinCompare:'characters-finn-lyra-twin-reference.png',
+  evidenceBoard:'convergence-02-complete-evidence-board.png',
+  hairCare:'application-swim-hair-care-comparison.png',
+  finalScene:'scene-11-final-case-report.png',
+  alienCrossed:'overlay-alien-explanation-crossed-out.png',
+  badge:'badge-investigation-complete.png'
+};
+
+/* ---------- GLOSSARY ---------- */
+var GLOSSARY = [
+  {term:'Inherited characteristic',def:'A trait that is passed from parents to their offspring, such as natural hair color.'},
+  {term:'Behavior',def:'Something an organism does, such as how often Lyra chooses to go swimming.'},
+  {term:'Environment',def:'The surroundings an organism lives in and interacts with, such as the water in a swimming pool.'},
+  {term:'Trait',def:'A feature of a living thing, like hair color, height, or eye color.'},
+  {term:'Evidence',def:'Observations and data used to support or test an explanation.'},
+  {term:'Claim',def:'A statement that answers a question, which you then support with evidence.'},
+  {term:'Reasoning',def:'The thinking that connects your evidence to your claim and explains why it makes sense.'},
+  {term:'Copper',def:'A metal that can be present in small amounts in some pool water. Copper compounds can attach to the outside of light-colored hair and give it a green tint.'},
+  {term:'Chlorine',def:'A chemical added to pools to keep the water clean. On its own, chlorine does not turn hair green.'},
+  {term:'Variation',def:'The differences between individuals, even within the same family.'}
+];
+
+/* ---------- DECISION POINTS ---------- */
+var DP1 = {
+  family:{ id:'family', trackerLabel:'Family Trait File', icon:'\uD83D\uDDBC\uFE0F', img:'iconFamily', title:'Open the Family Trait File',
+    desc:'Compare family photographs and portraits to figure out what Lyra inherited.' },
+  routine:{ id:'routine', trackerLabel:'Summer Routine Tracker', icon:'\uD83D\uDCC5', img:'iconRoutine', title:'Open the Summer Routine Tracker',
+    desc:'Compare what changed in Lyra\u2019s summer routine when the tint appeared.' }
+};
+var DP2 = {
+  pool:{ id:'pool', trackerLabel:'Pool-water evidence', icon:'\uD83D\uDCA7', img:'iconPool', title:'Test the pool water',
+    desc:'Run a hair-strand test and trace how something in the water could change light hair.' },
+  swimmer:{ id:'swimmer', trackerLabel:'Swimmer-pattern evidence', icon:'\uD83C\uDFCA', img:'iconSwimmer', title:'Compare the swimmers',
+    desc:'Compare swimmers with different hair and pool habits to find the pattern.' }
+};
+
+/* ---------- QUIZ (6 items, aligned to 5.L4U3.12) ---------- */
+var QUIZ = [
+  { id:'q1', icon:'\uD83D\uDC30', stem:'A rabbit\u2019s fur is brown in summer and turns white in winter. Its parents\u2019 fur changed the same way. What best explains the color change each season?',
+    options:[
+      {text:'The environment (colder weather and shorter days) affects an inherited characteristic \u2014 the fur.', correct:true, fb:'Correct. The rabbit inherits the ability to change fur color, and the environment triggers when it happens.'},
+      {text:'The rabbit chooses to change its fur color on purpose.', correct:false, fb:'Not quite \u2014 the change is not a choice. It is an inherited trait responding to the environment.'},
+      {text:'The rabbit\u2019s genes are replaced by new winter genes.', correct:false, fb:'Genes are not replaced. The environment affects how an inherited trait shows up.'},
+      {text:'Fur color is only inherited and never affected by anything else.', correct:false, fb:'Inheritance sets the possibilities, but the environment affects when the color changes.'} ] },
+  { id:'q2', icon:'\uD83C\uDF31', stem:'Two bean plants grew from seeds of the same parent plant. One sat in bright sunlight and grew tall; one sat in a dark closet and grew short and pale. What does this show?',
+    options:[
+      {text:'The environment (light) affected how an inherited trait \u2014 growth \u2014 developed.', correct:true, fb:'Correct. Both plants inherited the ability to grow, but their environments led to different results.'},
+      {text:'The tall plant has completely different genes than the short plant.', correct:false, fb:'They came from the same parent plant. The difference is the environment, not the inherited information.'},
+      {text:'Light has no effect on how plants grow.', correct:false, fb:'The data shows the opposite \u2014 the plant in the dark grew short and pale.'},
+      {text:'The short plant chose not to grow.', correct:false, fb:'Plants do not choose. The environment affected the inherited trait.'} ] },
+  { id:'q3', icon:'\uD83E\uDDD7', stem:'A student practices rock climbing several times a week for months. Their grip becomes much stronger. What best explains the stronger grip?',
+    options:[
+      {text:'A repeated behavior (practicing) affected a characteristic \u2014 grip strength.', correct:true, fb:'Correct. This is a characteristic shaped by behavior over time, not by inheritance alone.'},
+      {text:'The student was born with that exact grip strength and nothing changed it.', correct:false, fb:'The grip got stronger over months of practice \u2014 that is a behavior affecting a characteristic.'},
+      {text:'The student\u2019s children will be born already able to climb.', correct:false, fb:'A strength gained by practice is not passed to offspring the way inherited traits are.'},
+      {text:'Grip strength cannot change during a person\u2019s life.', correct:false, fb:'The example shows it can change \u2014 through repeated behavior.'} ] },
+  { id:'q4', icon:'\uD83C\uDF3B', stem:'A gardener plants the same kind of sunflower seeds in two spots. The sunflowers in rich, watered soil grow much taller than the ones in dry, poor soil. Why?',
+    options:[
+      {text:'The environment (soil and water) affected how the inherited trait of height developed.', correct:true, fb:'Correct. Same seeds, different environments, different results.'},
+      {text:'The taller sunflowers are a different species.', correct:false, fb:'They are the same kind of seed. The environment made the difference.'},
+      {text:'Sunflowers decide how tall they want to be.', correct:false, fb:'Plants do not decide. The environment affected an inherited trait.'},
+      {text:'Soil and water never affect plant growth.', correct:false, fb:'The results show soil and water clearly affected growth.'} ] },
+  { id:'q5', icon:'\uD83C\uDF43', stem:'A desert plant has thick, waxy leaves that hold in water. Its parent plants and offspring all have the same waxy leaves, even in different gardens. What best explains the waxy leaves?',
+    options:[
+      {text:'The waxy leaves are an inherited characteristic passed from parents to offspring.', correct:true, fb:'Correct. Because the trait appears across generations in different places, it is inherited.'},
+      {text:'The garden soil taught the plant to make waxy leaves.', correct:false, fb:'The trait shows up even in different gardens, which points to inheritance, not environment.'},
+      {text:'The plant grew waxy leaves because it chose to.', correct:false, fb:'Plants do not choose traits. This one is inherited.'},
+      {text:'Only the parent plants have waxy leaves.', correct:false, fb:'The offspring have them too \u2014 a sign the trait is inherited.'} ] },
+  { id:'q6', icon:'\uD83E\uDDA9', stem:'Flamingos are born with gray feathers. Their feathers turn pink only when they eat certain shrimp and algae. Flamingos without that food stay pale. This is most like Lyra\u2019s green hair because \u2026',
+    options:[
+      {text:'an inherited feature (feathers) is affected by an environmental condition (diet).', correct:true, fb:'Correct \u2014 just like Lyra\u2019s inherited hair was affected by the copper in the pool water.'},
+      {text:'the flamingos are choosing to change color.', correct:false, fb:'They are not choosing. Their diet, part of the environment, affects an inherited feature.'},
+      {text:'the flamingos\u2019 genes are replaced by pink genes.', correct:false, fb:'Genes are not replaced. The environment affects how the inherited feature looks.'},
+      {text:'feather color has nothing to do with what they eat.', correct:false, fb:'The example shows diet is exactly what changes the color.'} ] }
+];
+
+/* ---------- RESPONSE-PROMPT CONFIG (single source of truth for Build + Write) ---------- */
+/* ---------- RESPONSE PROMPTS (write-in) ---------- */
+var RESPONSE_PROMPTS = {
+  "familyTrait": {
+    "section": "section-4-dp1",
+    "pathTag": "family",
+    "prompt": "What does the Family Trait File suggest Lyra inherited? What does this evidence still not explain?",
+    "write": {
+      "placeholder": "Use evidence from the family photographs and portraits…"
+    }
+  },
+  "summerRoutine": {
+    "section": "section-4-dp1",
+    "pathTag": "routine",
+    "prompt": "Which recent behavior is most strongly connected to the timing of Lyra’s hair change? What extra evidence would Finn need before concluding that swimming caused it?",
+    "write": {
+      "placeholder": "Use evidence from the before-summer and summer routine tables…"
+    }
+  },
+  "convergence1": {
+    "section": "section-5-convergence1",
+    "prompt": "Based on both evidence files, explain what Finn can conclude so far. Include one piece of evidence about inheritance and one about Lyra’s recent experiences. What question remains unanswered?",
+    "write": {
+      "placeholder": "Bring the family evidence and the routine evidence together…"
+    }
+  },
+  "copperChlorine": {
+    "section": "section-7-dp2",
+    "pathTag": "pool",
+    "prompt": "What evidence shows that copper is a stronger explanation than chlorine alone?",
+    "write": {
+      "placeholder": "Compare what happened to the chlorine-only sample and the copper-containing sample…"
+    }
+  },
+  "whyLyra": {
+    "section": "section-7-dp2",
+    "pathTag": "swimmer",
+    "prompt": "Why might Lyra’s hair show a visible green tint while Finn’s does not, even though both twins have naturally blonde hair?",
+    "write": {
+      "placeholder": "Compare what the twins share and what is different about their pool exposure…"
+    }
+  },
+  "convergence2": {
+    "section": "section-8-convergence2",
+    "prompt": "Explain why Lyra’s hair developed a green tint while Finn’s remained blonde. Use inheritance, behavior, and environmental evidence.",
+    "write": {
+      "placeholder": "Make a claim, then support it with inheritance, behavior, and environmental evidence, plus your reasoning…"
+    }
+  },
+  "application": {
+    "section": "section-9-application",
+    "prompt": "I recommend that Lyra __________ because the evidence shows __________.",
+    "write": {
+      "placeholder": "Recommend a plan that lets Lyra keep swimming, and support it with evidence…"
+    }
+  },
+  "finalArgument": {
+    "section": "section-10-report",
+    "prompt": "Write your final argument: why did Lyra’s inherited blonde hair develop a green tint, while Finn’s did not?",
+    "write": {
+      "placeholder": "State your claim, give inheritance, behavior, and environmental evidence, then explain your reasoning…"
+    }
+  },
+  "reflection": {
+    "section": "section-10-report",
+    "prompt": "Finn began with an unusual guess. How did gathering evidence change or strengthen his explanation?",
+    "write": {
+      "placeholder": "Describe Finn’s first idea, what the evidence showed, and why he revised his explanation…"
+    }
+  }
+};
+
+var PROMPT_ORDER = ['familyTrait','summerRoutine','convergence1','copperChlorine','whyLyra','convergence2','application','finalArgument','reflection'];
+
+/* ---------- STATE ---------- */
+function freshResponse(){ return { writtenText:'', saved:false }; }
+function freshState(){
+  var responses = {};
+  PROMPT_ORDER.forEach(function(k){ responses[k] = freshResponse(); });
+  return {
+    schemaVersion:1, lessonId:LESSON_ID, lessonVersion:LESSON_VERSION,
+    currentSection:'section-0-launch', history:[], resumeCode:null, started:false, completed:false,
+    lessonStartTime:null, lessonEndTime:null, elapsedSeconds:0,
+    decisions:{ dp1:null, dp2:null },
+    dp1:{ photoOrder:[], photoChecked:false, patternPick:null, routineBehavior:null, timelineViewed:false },
+    dp2:{ strandRevealed:false, sequence:[], sequenceChecked:false, classify:{}, swimmerViewed:false },
+    responses:responses,
+    quiz:{ choice:null, answers:{}, submitted:false, score:null },
+    exportName:'', eventLog:[]
+  };
+}
+var state = freshState();
+
+function hydrate(saved){
+  var base = freshState();
+  (function merge(t, s){
+    for (var k in s){
+      if (!Object.prototype.hasOwnProperty.call(s, k)) continue;
+      var sv = s[k], tv = t[k];
+      if (sv && typeof sv === 'object' && !Array.isArray(sv) && tv && typeof tv === 'object' && !Array.isArray(tv)) merge(tv, sv);
+      else t[k] = sv;
+    }
+  })(base, saved || {});
+  return base;
+}
+</script>
+
+<script>
+'use strict';
+/* ==========================================================================
+   SECTION B — ENGINE: storage, timing, utils, assets, nav, response mode
+   ========================================================================== */
+
+/* ---------- B1. STORAGE ---------- */
+var storageWarned = false;
+function saveState(){
+  try{
+    var json = JSON.stringify(state);
+    localStorage.setItem(STORAGE_KEY, json);
+    if (state.resumeCode) localStorage.setItem(STORAGE_KEY + '_' + state.resumeCode, json);
+  }catch(e){ if(!storageWarned){ storageWarned=true; toast('This browser could not save your work. Do not close the tab.'); } }
+}
+function loadState(){
+  try{ var raw = localStorage.getItem(STORAGE_KEY); if(!raw) return false; state = hydrate(JSON.parse(raw)); return true; }
+  catch(e){ return false; }
+}
+function clearLessonStorage(){
+  try{ var doomed=[]; for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(k && k.indexOf(STORAGE_KEY)===0) doomed.push(k); } doomed.forEach(function(k){ localStorage.removeItem(k); }); }catch(e){}
+}
+var CODE_CHARS='ACDEFGHJKMNPQRTUVWXY', CODE_DIGITS='23456789';
+function generateResumeCode(){ var n=''; for(var i=0;i<4;i++) n+=CODE_DIGITS.charAt(Math.floor(Math.random()*CODE_DIGITS.length)); return 'GHM-'+n+'-'+CODE_CHARS.charAt(Math.floor(Math.random()*CODE_CHARS.length)); }
+
+/* ---------- B2. EVENT LOG + TIMING ---------- */
+var eventSeq=0;
+function logEvent(type,payload){
+  try{ state.eventLog.push({id:'e'+(++eventSeq),at:new Date().toISOString(),elapsed:state.elapsedSeconds,section:state.currentSection,type:type,payload:payload||{}}); if(state.eventLog.length>1500) state.eventLog.splice(0,300); }catch(e){}
+}
+var tickHandle=null;
+function beginTiming(){ if(!state.lessonStartTime) state.lessonStartTime=new Date().toISOString(); state.started=true; startTick(); }
+function startTick(){ if(tickHandle||!state.started||state.completed) return; tickHandle=setInterval(function(){ state.elapsedSeconds++; },1000); }
+function stopTick(){ if(tickHandle){ clearInterval(tickHandle); tickHandle=null; } }
+function formatClock(s){ s=s||0; var m=Math.floor(s/60), sec=s%60; return m+':'+(sec<10?'0':'')+sec; }
+function formatStamp(iso){ if(!iso) return '—'; try{ var d=new Date(iso); return d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})+' '+d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}); }catch(e){ return iso; } }
+
+/* ---------- B3. UTILS ---------- */
+function el(id){ return document.getElementById(id); }
+function qs(sel,root){ return (root||document).querySelector(sel); }
+function qsa(sel,root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel)); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function announce(msg){ var r=el('liveRegion'); if(r) r.textContent=msg; }
+var toastHandle=null;
+function toast(msg){ var t=el('toast'); if(!t) return; t.textContent=msg; t.classList.add('is-on'); clearTimeout(toastHandle); toastHandle=setTimeout(function(){ t.classList.remove('is-on'); },2600); }
+
+/* ---------- B4. ASSET PLACEHOLDERS ---------- */
+function assetPath(key){ return ASSET_BASE + (IMAGE_ASSETS[key] || (key+'.png')); }
+function assetMarkup(key,alt,cls,cap){
+  var p=assetPath(key);
+  return '<figure class="asset '+(cls||'asset--wide')+' is-pending" data-asset-path="'+esc(p)+'">'+
+    '<img src="'+esc(p)+'" alt="'+esc(alt||'')+'" onload="assetLoaded(this)" onerror="assetFailed(this)">'+
+    '<span class="asset__ph" aria-hidden="true"><span class="asset__ph-icon">\uD83D\uDDBC</span><span class="asset__ph-label">Image pending</span><span class="asset__ph-path">'+esc(p)+'</span></span>'+
+    (cap?'<figcaption class="asset__cap">'+esc(cap)+'</figcaption>':'')+'</figure>';
+}
+function assetLoaded(img){ var w=img.closest('.asset'); if(w) w.classList.remove('is-pending'); }
+function assetFailed(img){ var w=img.closest('.asset'); if(w) w.classList.add('is-pending'); }
+
+/* ---------- B5. RESPONSIVE CHROME ---------- */
+var measureHandle=null;
+function measureChrome(){
+  var header=el('appHeader'), tracker=el('tracker');
+  if(header) document.documentElement.style.setProperty('--header-h', header.offsetHeight+'px');
+  if(tracker){ var h=tracker.classList.contains('is-visible')?tracker.offsetHeight:0; document.documentElement.style.setProperty('--tracker-h', h+'px'); }
+}
+function scheduleMeasure(){ clearTimeout(measureHandle); measureHandle=setTimeout(measureChrome,60); }
+
+/* ---------- B6. NAVIGATION ---------- */
+function sectionIndex(id){ return SECTION_ORDER.indexOf(id); }
+function goTo(sectionId, pushHistory){
+  if(sectionIndex(sectionId)<0) return;
+  stopSpeech();
+  if(pushHistory!==false && state.currentSection!==sectionId) state.history.push(state.currentSection);
+  qsa('.section').forEach(function(s){ s.classList.remove('active'); });
+  var target=el(sectionId); if(target) target.classList.add('active');
+  state.currentSection=sectionId;
+  logEvent('section-enter',{to:sectionId});
+  renderSection(sectionId);
+  updateTracker(); updateProgress(); updateGates();
+  scheduleMeasure();
+  window.scrollTo({top:0,behavior:'auto'});
+  announce(SECTION_LABELS[sectionId]||'Section changed');
+  saveState();
+}
+function goBack(){ if(!state.history.length) return; var prev=state.history.pop(); goTo(prev,false); }
+function goNext(){ var i=sectionIndex(state.currentSection); if(i>=0 && i<SECTION_ORDER.length-1) goTo(SECTION_ORDER[i+1]); }
+
+function updateProgress(){
+  var i=Math.max(0,sectionIndex(state.currentSection));
+  var pct=Math.round((i/(SECTION_ORDER.length-1))*100);
+  var bar=el('progressBar'); if(bar){ bar.style.width=pct+'%'; bar.setAttribute('aria-valuenow',String(pct)); }
+}
+function updateTracker(){
+  var tr=el('tracker'); if(!tr) return;
+  var show = state.started && state.currentSection!=='section-0-launch';
+  tr.classList.toggle('is-visible',show);
+  document.body.classList.toggle('tracker-on',show);
+  setTrackerStep(1, state.decisions.dp1 ? DP1[state.decisions.dp1].trackerLabel : null);
+  setTrackerStep(2, state.decisions.dp2 ? DP2[state.decisions.dp2].trackerLabel : null);
+  scheduleMeasure();
+}
+function setTrackerStep(n,val){
+  var step=el('tstep-'+n), v=el('tvalue-'+n); if(!step||!v) return;
+  if(val){ v.textContent=val; step.classList.add('is-set'); } else { v.textContent='Awaiting your choice\u2026'; step.classList.remove('is-set'); }
+}
+
+/* ---------- B7. GATES (reveal Continue; never require open responses) ---------- */
+var GATES = {
+  'section-3-dp1-choice': function(){ return state.decisions.dp1 ? '' : 'Choose where Finn should begin.'; },
+  'section-4-dp1': function(){
+    if(state.decisions.dp1==='family'){ if(!state.dp1.photoChecked) return 'Put the four photographs in order to reveal the next step.'; if(!state.dp1.patternPick) return 'Choose what the family pattern shows.'; }
+    else { if(!state.dp1.routineBehavior) return 'Choose the behavior that changed to reveal the timeline.'; if(!state.dp1.timelineViewed) return 'Reveal the three-week timeline.'; }
+    return '';
+  },
+  'section-6-dp2-choice': function(){ return state.decisions.dp2 ? '' : 'Choose a deeper investigation.'; },
+  'section-7-dp2': function(){
+    if(state.decisions.dp2==='pool'){ if(!state.dp2.strandRevealed) return 'Reveal the hair-strand test results.'; if(!state.dp2.sequenceChecked) return 'Put the cause-and-effect steps in order.'; }
+    else { if(!state.dp2.swimmerViewed) return 'Reveal the swim-team comparison.'; if(Object.keys(state.dp2.classify).length<4) return 'Sort all four cards into a category.'; }
+    return '';
+  }
+};
+function gateReason(id){ var g=GATES[id]; return g?g():''; }
+function updateGates(){
+  var sec=el(state.currentSection); if(!sec) return;
+  var reason=gateReason(state.currentSection);
+  qsa('[data-next]',sec).forEach(function(btn){
+    if(btn.hasAttribute('data-nogate')) return;
+    var blocked=!!reason; btn.disabled=blocked; btn.setAttribute('aria-disabled',blocked?'true':'false');
+    if(blocked) btn.title=reason; else btn.removeAttribute('title');
+  });
+  var note=qs('[data-gate-note]',sec); if(note) note.textContent=reason;
+  qsa('[data-back]',sec).forEach(function(b){ b.disabled=!state.history.length; });
+}
+
+/* ---------- B8. RESPONSE ENGINE (write-in) ---------- */
+function finalTextFor(id){ return (state.responses[id].writtenText||'').trim(); }
+function renderResponseHTML(id){
+  var cfg=RESPONSE_PROMPTS[id], r=state.responses[id];
+  return '<div class="resp" data-resp-root="'+id+'">'+
+    '<div class="resp__head"><p class="resp__prompt">'+esc(cfg.prompt)+'</p></div>'+
+    '<div class="resp__body">'+
+      '<textarea data-write="'+id+'" rows="6" aria-label="'+esc(cfg.prompt)+'" placeholder="'+esc((cfg.write&&cfg.write.placeholder)||'Write your response here\u2026')+'">'+esc(r.writtenText||'')+'</textarea>'+
+      '<div class="resp__actions"><button class="btn btn--primary" type="button" data-resp-save="'+id+'">'+(r.saved?'Update response':'Save to journal')+'</button>'+
+      '<span class="save-flag" data-flag-for="'+id+'">\u2713 Saved to journal</span></div>'+
+    '</div></div>';
+}
+function mountResponses(root){
+  qsa('[data-response]',root).forEach(function(node){ node.innerHTML=renderResponseHTML(node.getAttribute('data-response')); });
+  qsa('[data-write]',root).forEach(bindWrite);
+}
+var debouncers={};
+function debounce(key,fn,ms){ clearTimeout(debouncers[key]); debouncers[key]=setTimeout(fn,ms==null?500:ms); }
+function bindWrite(node){
+  if(node.dataset.bound) return; node.dataset.bound='1';
+  var id=node.getAttribute('data-write');
+  node.addEventListener('input',function(){ state.responses[id].writtenText=node.value; debounce('w-'+id,function(){ saveState(); renderJournalDrawer(); },500); });
+  node.addEventListener('blur',function(){ state.responses[id].writtenText=node.value; saveState(); renderJournalDrawer(); });
+}
+function saveResponse(id){
+  var r=state.responses[id]; r.saved=true;
+  var flag=qs('[data-flag-for="'+id+'"]'); if(flag){ flag.classList.add('is-on'); debounce('flag-'+id,function(){ flag.classList.remove('is-on'); },1800); }
+  var btn=qs('[data-resp-save="'+id+'"]'); if(btn) btn.textContent='Update response';
+  logEvent('resp-save',{id:id});
+  saveState(); renderJournalDrawer(); toast('Saved to your Investigation Journal.');
+}
+
+/* ---------- B9. JOURNAL DRAWER ---------- */
+function renderJournalDrawer(){
+  var wrap=el('drawerEntries'); if(!wrap) return;
+  var html='';
+  PROMPT_ORDER.forEach(function(id){
+    var cfg=RESPONSE_PROMPTS[id], txt=finalTextFor(id);
+    html+='<div class="jrow"><p class="jrow__prompt">'+esc(cfg.prompt)+'</p>';
+    html+= txt ? '<p class="jrow__resp">'+esc(txt)+'</p>' : '<p class="jrow__resp is-empty">No response saved yet.</p>';
+    html+='</div>';
+  });
+  wrap.innerHTML=html;
+}
+function openDrawer(){ renderJournalDrawer(); el('journalDrawer').classList.add('is-open'); el('drawerBackdrop').classList.add('is-open'); el('journalDrawer').focus(); }
+function closeDrawer(){ el('journalDrawer').classList.remove('is-open'); el('drawerBackdrop').classList.remove('is-open'); }
+
+/* ---------- B11. MODALS + GLOSSARY ---------- */
+var lastFocused=null;
+function openModal(id){ lastFocused=document.activeElement; var m=el(id); if(m){ m.classList.add('is-open'); var f=m.querySelector('input,button'); if(f) f.focus(); } }
+function closeModal(id){ var m=el(id); if(m) m.classList.remove('is-open'); if(lastFocused && lastFocused.focus) lastFocused.focus(); }
+function renderGlossary(){
+  var list=el('glossaryList'); if(!list) return;
+  list.innerHTML=GLOSSARY.map(function(g){ return '<div class="gloss-term"><dt>'+esc(g.term)+'</dt><dd>'+esc(g.def)+'</dd></div>'; }).join('');
+}
+
+/* ---------- B12. TEXT-TO-SPEECH ---------- */
+function speechSupported(){ return typeof window.speechSynthesis!=='undefined' && typeof window.SpeechSynthesisUtterance!=='undefined'; }
+var speaking=false;
+function toggleSpeech(btn){
+  if(!speechSupported()) return;
+  var text=btn.getAttribute('data-tts')||'';
+  if(speaking){ stopSpeech(); return; }
+  var u=new SpeechSynthesisUtterance(text); u.rate=.95;
+  u.onend=function(){ speaking=false; btn.classList.remove('is-playing'); btn.querySelector('[data-tts-label]').textContent='Read aloud'; };
+  window.speechSynthesis.speak(u); speaking=true; btn.classList.add('is-playing'); btn.querySelector('[data-tts-label]').textContent='Stop';
+}
+function stopSpeech(){ if(speechSupported() && speaking){ window.speechSynthesis.cancel(); } speaking=false; qsa('.tts-btn.is-playing').forEach(function(b){ b.classList.remove('is-playing'); var l=b.querySelector('[data-tts-label]'); if(l) l.textContent='Read aloud'; }); }
+function ttsButton(text){
+  if(!speechSupported()) return '';
+  return '<button class="tts-btn" type="button" data-tts="'+esc(text)+'"><span aria-hidden="true">\uD83D\uDD0A</span> <span data-tts-label>Read aloud</span></button>';
+}
+</script>
+
+<script>
+'use strict';
+/* ==========================================================================
+   SECTION C — SECTION RENDERERS + INTERACTIVE ACTIVITIES
+   ========================================================================== */
+
+var PHOTO_ITEMS = [
+  {id:'p1', label:'Early childhood \u2014 both twins have blonde hair.', asset:'photo1'},
+  {id:'p2', label:'Two years ago \u2014 both twins still have blonde hair.', asset:'photo2'},
+  {id:'p3', label:'End of the school year \u2014 both twins have blonde hair.', asset:'photo3'},
+  {id:'p4', label:'This summer \u2014 Lyra\u2019s hair now has a green tint.', asset:'photo4'}
+];
+var PHOTO_CORRECT = ['p1','p2','p3','p4'];
+var SEQ_ITEMS = [
+  {id:'s1', label:'Lyra swims in the pool about six times each week.'},
+  {id:'s2', label:'The pool water contains small amounts of copper.'},
+  {id:'s3', label:'Copper compounds attach to the outside of her light-colored hair.'},
+  {id:'s4', label:'Her hair shows a visible green tint.'}
+];
+var SEQ_CORRECT = ['s1','s2','s3','s4'];
+var CLASSIFY_ITEMS = [
+  {id:'c1', label:'Swimming in the pool very often'},
+  {id:'c2', label:'Having naturally light-colored hair'},
+  {id:'c3', label:'Rarely going in the pool'},
+  {id:'c4', label:'Having naturally dark-colored hair'}
+];
+
+function updateHeaderChip(){
+  var chip=el('codeChip'), val=el('codeChipVal');
+  if(state.resumeCode && state.started){ if(chip) chip.hidden=false; if(val) val.textContent=state.resumeCode; }
+  else if(chip){ chip.hidden=true; }
+}
+
+/* ---------- DISPATCHER ---------- */
+function renderSection(id){
+  updateHeaderChip();
+  switch(id){
+    case 'section-0-launch': return renderLaunch();
+    case 'section-1-breakfast': return renderBreakfast();
+    case 'section-2-genetica': return renderGenetica();
+    case 'section-3-dp1-choice': return renderDp1Choice();
+    case 'section-4-dp1': return renderDp1();
+    case 'section-5-convergence1': return renderConvergence1();
+    case 'section-6-dp2-choice': return renderDp2Choice();
+    case 'section-7-dp2': return renderDp2();
+    case 'section-8-convergence2': return renderConvergence2();
+    case 'section-9-application': return renderApplication();
+    case 'section-10-report': return renderReport();
+    case 'section-11-quiz': return renderQuiz();
+    case 'section-12-complete': return renderComplete();
+  }
+}
+function navRow(opts){
+  opts=opts||{};
+  var back = opts.noBack ? '' : '<button class="btn-back" type="button" data-back>\u2190 Back</button>';
+  var next = opts.nextLabel!==null ? '<button class="btn btn--primary" type="button" data-next'+(opts.nogate?' data-nogate':'')+'>'+(opts.nextLabel||'Continue')+' \u2192</button>' : '';
+  var note = '<p class="gate-note" data-gate-note></p>';
+  return '<div class="btn-row btn-row--split">'+back+next+'</div>'+note;
+}
+
+/* ---------- 0. LAUNCH ---------- */
+function renderLaunch(){
+  var v1 = state.decisions.dp1 ? DP1[state.decisions.dp1].trackerLabel : 'Awaiting your choice…';
+  var v2 = state.decisions.dp2 ? DP2[state.decisions.dp2].trackerLabel : 'Awaiting your choice…';
+  var s1 = state.decisions.dp1 ? ' is-set' : '', s2 = state.decisions.dp2 ? ' is-set' : '';
+  var objectives = [
+    'Distinguish an inherited characteristic from a trait whose appearance is affected by behavior or the environment.',
+    'Analyze patterns in evidence to explain cause-and-effect relationships in a trait change.',
+    'Explain how an environmental condition can affect the appearance of an inherited characteristic.',
+    'Construct an argument from evidence using a claim, evidence, and reasoning.',
+    'Communicate scientific thinking through investigation-journal responses.',
+    'Make evidence-based decisions and reflect on science-based problem solving.'
+  ];
+  var objHtml = objectives.map(function(o,i){ return '<div class="obj-card"><div class="obj-num">'+(i+1)+'</div><p>'+esc(o)+'</p></div>'; }).join('');
+  el('section-0-launch').innerHTML =
+    '<div class="launch-path">'+
+      '<p class="launch-path__title">🔍 Your investigation path</p>'+
+      '<div class="path-inline">'+
+        '<div class="tstep'+s1+'"><span class="tstep__num">1</span><span><span class="tstep__label">Evidence file</span><br><span class="tstep__value">'+esc(v1)+'</span></span></div>'+
+        '<div class="path-arrow" aria-hidden="true">→</div>'+
+        '<div class="tstep'+s2+'"><span class="tstep__num">2</span><span><span class="tstep__label">Deeper investigation</span><br><span class="tstep__value">'+esc(v2)+'</span></span></div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="card card--midnight card--pad-lg" style="text-align:center;">'+
+      assetMarkup('cover','Alien Alert: The Green Hair Mystery cover art','asset--wide')+
+      '<p class="eyebrow" style="margin-top:18px;color:var(--gold);">Stories in Science · Arizona Grade 5</p>'+
+      '<h1 style="color:#fff;font-size:2rem;font-family:var(--display);font-weight:600;margin:0 0 10px;">Alien Alert: The Green Hair Mystery</h1>'+
+      '<p style="color:#E4E0F2;font-size:1.08rem;max-width:640px;margin:0 auto 6px;">You are a member of the Genetica Club. Finn’s twin sister Lyra came home from swim practice with a strange new look — her blonde hair now has a green tint. <b>Your mission is to investigate what changed, study the evidence, and explain how an inherited characteristic can be affected by behavior and the environment.</b></p>'+
+      '<div class="btn-row" style="justify-content:center;"><button class="btn btn--gold btn--lg" type="button" data-begin>🔍 Start the investigation</button></div>'+
+    '</div>'+
+    '<details class="collapse">'+
+      '<summary>Learning Objectives &amp; Instructional Alignment</summary>'+
+      '<div class="collapse__body">'+
+        '<p class="collapse__intro">In this lesson, students investigate why Lyra’s inherited blonde hair developed a green tint. They gather family and routine evidence, test how a pool-water environment can affect light-colored hair, and build a claim–evidence–reasoning argument that an inherited characteristic can be affected by behavior and environmental conditions.</p>'+
+        '<p class="sec-label">Learning objectives</p>'+
+        '<div class="obj-grid">'+objHtml+'</div>'+
+        '<p class="sec-label" style="margin-top:16px;">Standards &amp; practices</p>'+
+        '<div class="std-grid">'+
+          '<div class="std-col"><p class="std-col__h">📐 Arizona science standard</p><p><b>5.L4U3.12</b> — Construct an argument based on evidence that inherited characteristics can be affected by behavior and/or environmental conditions.</p></div>'+
+          '<div class="std-col"><p class="std-col__h">⚗️ Science &amp; engineering practices</p><p>Analyze and Interpret Data · Construct Explanations · Engage in Argument from Evidence · Obtain, Evaluate, and Communicate Information</p></div>'+
+          '<div class="std-col"><p class="std-col__h">🔗 Crosscutting concepts</p><p>Cause and Effect · Patterns · Structure and Function · Stability and Change</p></div>'+
+        '</div>'+
+        '<div class="callout callout--gold" style="margin-top:16px;"><p class="eyebrow eyebrow--gold" style="margin-bottom:6px;">⭐ Stories in Science framework alignment</p><p style="margin:0;font-size:.92rem;">Students enter through a narrative role as Genetica Club investigators, choose investigation pathways (Family Trait File vs. Summer Routine Tracker, then a pool-water test vs. a swimmer comparison), analyze evidence, respond in their choice of <b>Build</b> or <b>Write</b> mode, construct a full claim–evidence–reasoning argument, and export an Investigation Journal artifact.</p></div>'+
+      '</div>'+
+    '</details>';
+}
+
+/* ---------- MODE SELECT ---------- */
+/* ---------- 1. BREAKFAST (phenomenon) ---------- */
+function renderBreakfast(){
+  var narr = 'Finn nearly dropped his cereal spoon. Across the breakfast table, his twin sister Lyra reached for the orange juice, and the morning light caught her hair. It was green. Not all over \u2014 more like a green tint spread through her usually blonde hair. Finn blinked. Yesterday her hair was blonde. This morning it was tinted green. His imagination raced. Was Lyra slowly turning into an alien?';
+  el('section-1-breakfast').innerHTML =
+    '<p class="eyebrow">Page 1 · The phenomenon</p>'+
+    '<h2 class="page-title">Something strange at breakfast</h2>'+
+    '<div class="card">'+
+      assetMarkup('breakfast','Finn stares at Lyra whose blonde hair has a green tint','asset--wide')+
+      ttsButton(narr)+
+      '<div class="narr">'+
+        '<p>'+esc(narr)+'</p>'+
+        '<div class="dialogue"><span class="dialogue__who">Finn:</span><span>\u201CLyra\u2026 your hair. It\u2019s <em>green.</em>\u201D</span></div>'+
+        '<div class="dialogue dialogue--lyra"><span class="dialogue__who">Lyra:</span><span>\u201CI know! It started a few days ago. Weird, right? Mom says it\u2019ll be fine, but I want to know <em>why.</em>\u201D</span></div>'+
+      '</div>'+
+      '<div class="callout"><b>Finn\u2019s wild first idea:</b> \u201CWhat if Lyra is turning into an alien?\u201D Tap below to see what Finn is picturing \u2014 then remember, a good investigator tests ideas with evidence.</div>'+
+      '<div class="btn-row"><button class="btn btn--ghost" type="button" data-alien-toggle>\uD83D\uDC7D Show what Finn imagines</button></div>'+
+      '<div id="alienOverlay" hidden style="margin-top:14px;">'+assetMarkup('alienOverlay','Finn\u2019s imagination: Lyra as a friendly green alien','asset--wide','Finn\u2019s imagination \u2014 fun, but not yet supported by any evidence.')+'</div>'+
+    '</div>'+
+    '<div class="card callout--teal" style="border:none;">'+
+      '<p class="eyebrow">Your investigator question</p>'+
+      '<p style="font-size:1.06rem;margin:0;"><b>Why did Lyra\u2019s blonde hair develop a green tint?</b> Keep this question in mind as you gather evidence.</p>'+
+    '</div>'+
+    navRow({nogate:true});
+}
+
+/* ---------- 2. GENETICA ---------- */
+function renderGenetica(){
+  var narr = 'Finn pulled out his Genetica Club notebook. In the club, young scientists solve everyday mysteries about traits \u2014 why offspring look the way they do, and why family members can look alike and still be different. Finn remembered the club\u2019s golden rule: an inherited characteristic is passed from parents to offspring, but the way a trait looks can sometimes be affected by what an organism does and where it lives. Green hair felt impossible. But \u201Cimpossible\u201D is exactly the kind of thing the Genetica Club investigates.';
+  el('section-2-genetica').innerHTML =
+    '<p class="eyebrow eyebrow--purple">Page 2 · The investigator</p>'+
+    '<h2 class="page-title">A Genetica Club investigation</h2>'+
+    '<div class="card card--notebook">'+
+      assetMarkup('genetica','Finn opening the Genetica Club notebook','asset--wide')+
+      ttsButton(narr)+
+      '<div class="narr" style="margin-top:12px;"><p>'+esc(narr)+'</p></div>'+
+    '</div>'+
+    '<div class="card">'+
+      '<p class="eyebrow">Genetica Club notebook \u2014 what we know</p>'+
+      '<table class="data"><thead><tr><th>Idea</th><th>What it means</th></tr></thead><tbody>'+
+        '<tr><td>Inherited characteristic</td><td>A trait passed from parents to offspring \u2014 like natural hair color.</td></tr>'+
+        '<tr><td>Behavior</td><td>Something an organism does \u2014 like how often Lyra goes swimming.</td></tr>'+
+        '<tr><td>Environment</td><td>The surroundings an organism lives in \u2014 like the water in a pool.</td></tr>'+
+      '</tbody></table>'+
+      '<div class="callout callout--gold">A trait can be <b>inherited</b> and still be <b>affected</b> by behavior or the environment. That is the mystery Finn needs to untangle.</div>'+
+    '</div>'+
+    navRow({nogate:true});
+}
+
+/* ---------- 3. DECISION POINT 1 ---------- */
+function renderDp1Choice(){
+  el('section-3-dp1-choice').innerHTML =
+    '<p class="eyebrow eyebrow--gold">Case 01 · Decision Point 1</p>'+
+    '<h2 class="page-title">Where should Finn begin?</h2>'+
+    '<p class="page-lead">Finn has two evidence files he could open first. Both lead to the same mystery \u2014 pick the one you want to investigate. (You will see the other file\u2019s findings later, too.)</p>'+
+    '<div class="dp-grid">'+
+      dpCard('dp1', DP1.family)+
+      dpCard('dp1', DP1.routine)+
+    '</div>'+
+    '<div class="btn-row btn-row--split"><button class="btn-back" type="button" data-back>\u2190 Back</button></div>';
+}
+function dpCard(kind, cfg){
+  var icon = cfg.img
+    ? '<span class="dp-card__icon"><img class="dp-card__img" src="'+esc(assetPath(cfg.img))+'" alt="" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\'"><span class="dp-card__emoji" style="display:none">'+cfg.icon+'</span></span>'
+    : '<span class="dp-card__icon">'+cfg.icon+'</span>';
+  return '<button class="dp-card" type="button" data-'+kind+'="'+cfg.id+'">'+
+    icon+
+    '<span class="dp-card__title">'+esc(cfg.title)+'</span>'+
+    '<span class="dp-card__desc">'+esc(cfg.desc)+'</span>'+
+    '<span class="dp-card__go">Investigate this \u2192</span></button>';
+}
+function chooseDp1(path){ state.decisions.dp1=path; logEvent('dp1',{path:path}); saveState(); goTo('section-4-dp1'); }
+
+/* ---------- 4. DP1 INVESTIGATION ---------- */
+function renderDp1(){
+  var host=el('section-4-dp1');
+  if(state.decisions.dp1==='family') host.innerHTML=dp1FamilyHtml();
+  else host.innerHTML=dp1RoutineHtml();
+  if(state.decisions.dp1==='family') paintSeq('photoSeq','photo');
+  mountResponses(host);
+}
+function dp1FamilyHtml(){
+  var patternOpts = [
+    {id:'blonde', text:'Blonde hair appears across the family, and the green tint is new \u2014 it only shows up in the most recent photo.'},
+    {id:'always', text:'Lyra has always had green-tinted hair.'},
+    {id:'finn', text:'Only Finn ever had blonde hair.'},
+    {id:'random', text:'The photos show no pattern at all.'}
+  ];
+  var picked=state.dp1.patternPick;
+  var patternHtml = patternOpts.map(function(o){
+    var on=picked===o.id;
+    return '<button class="opt'+(on?' is-selected':'')+'" type="button" role="radio" aria-checked="'+(on?'true':'false')+'" data-pattern="'+o.id+'"><span class="opt__mark" aria-hidden="true"></span>'+esc(o.text)+'</button>';
+  }).join('');
+  var reveal = state.dp1.photoChecked ?
+    '<div class="fb fb--info"><b>Family pattern:</b> In every earlier photo, both twins have blonde hair. The green tint shows up only in the most recent photo. That means blonde hair is the inherited characteristic \u2014 and something <em>recent</em> changed how Lyra\u2019s hair looks.</div>'+
+    '<p class="resp__section-label" style="margin-top:16px;">What does the family pattern show?</p>'+
+    '<div role="radiogroup" aria-label="What the family pattern shows">'+patternHtml+'</div>' : '';
+  return '<p class="eyebrow">Evidence File 1A · Family Trait File</p>'+
+    '<h2 class="page-title">What did Lyra inherit?</h2>'+
+    '<p class="page-lead">Put the four family photographs in order from oldest to newest. Watching the timeline in order helps you separate what was <em>inherited</em> from what <em>changed recently</em>.</p>'+
+    '<div class="card"><p class="resp__section-label">Drag the photos into time order (oldest first) using the arrows:</p>'+
+      '<ul class="seq" id="photoSeq"></ul>'+
+      '<div class="btn-row"><button class="btn btn--purple" type="button" data-seq-confirm="photo">Confirm the time order</button></div>'+
+      reveal+
+    '</div>'+
+    '<div class="card"><div data-response="familyTrait"></div></div>'+
+    navRow({});
+}
+function dp1RoutineHtml(){
+  var behaviorOpts = [
+    {id:'swim', text:'Lyra joined swim team and now swims about six times each week (before, about once a week).'},
+    {id:'outdoor', text:'Lyra spends one extra day outdoors each week.'},
+    {id:'shampoo', text:'Lyra switched to a brand-new shampoo.'},
+    {id:'meals', text:'Lyra changed what she eats for breakfast.'}
+  ];
+  var picked=state.dp1.routineBehavior;
+  var behaviorHtml = behaviorOpts.map(function(o){
+    var on=picked===o.id;
+    return '<button class="opt'+(on?' is-selected':'')+'" type="button" role="radio" aria-checked="'+(on?'true':'false')+'" data-behavior="'+o.id+'"><span class="opt__mark" aria-hidden="true"></span>'+esc(o.text)+'</button>';
+  }).join('');
+  var table = picked ?
+    '<div class="table-scroll" style="margin-top:14px;"><table class="data"><thead><tr><th>Activity</th><th>Before summer</th><th>This summer</th></tr></thead><tbody>'+
+    '<tr><td class="flag">Swimming in the pool</td><td>~1 time per week</td><td class="flag">~6 times per week</td></tr>'+
+    '<tr><td>Days outdoors</td><td>4 days</td><td>5 days</td></tr>'+
+    '<tr><td>Shampoo used</td><td>Same brand</td><td>Same brand</td></tr>'+
+    '<tr><td>Breakfast</td><td>Cereal / toast</td><td>Cereal / toast</td></tr>'+
+    '</tbody></table></div>' : '';
+  var timeline = state.dp1.timelineViewed ?
+    '<div style="margin-top:14px;">'+assetMarkup('timeline','Three-week timeline showing the green tint growing as pool visits increase','asset--wide','Weeks 1\u20133: as Lyra\u2019s pool visits went up, the green tint became easier to see.')+
+    '<div class="fb fb--info"><b>Timing match:</b> The green tint appeared during the same three weeks that Lyra\u2019s pool visits jumped from about once a week to about six times a week.</div></div>' :
+    (picked ? '<div class="btn-row"><button class="btn btn--purple" type="button" data-reveal="timeline">Reveal the 3-week timeline</button></div>' : '');
+  return '<p class="eyebrow">Evidence File 1B · Summer Routine Tracker</p>'+
+    '<h2 class="page-title">What changed this summer?</h2>'+
+    '<p class="page-lead">Compare Lyra\u2019s routine before summer with her routine now. Which behavior changed the most \u2014 and does its timing line up with the hair change?</p>'+
+    '<div class="card"><p class="resp__section-label">Which behavior changed the most this summer?</p>'+
+      '<div role="radiogroup" aria-label="Which behavior changed most">'+behaviorHtml+'</div>'+
+      table+timeline+
+    '</div>'+
+    '<div class="card"><div data-response="summerRoutine"></div></div>'+
+    navRow({});
+}
+
+/* ---------- 5. CONVERGENCE 1 ---------- */
+function renderConvergence1(){
+  var host=el('section-5-convergence1');
+  host.innerHTML =
+    '<p class="eyebrow eyebrow--purple">Page 6 · Bringing the files together</p>'+
+    '<h2 class="page-title">Two files, one pattern</h2>'+
+    '<p class="page-lead">No matter which file you opened first, both point the same way. Here is what each evidence file showed.</p>'+
+    '<div class="strip" style="grid-template-columns:1fr 1fr;">'+
+      '<div class="strip__panel"><div style="padding:14px;"><p class="eyebrow eyebrow--purple">Family Trait File</p><p style="margin:0;font-size:.95rem;">Earlier photos show both twins with blonde hair, and blonde hair appears across the family. The green tint is new. <b>Blonde hair is inherited.</b></p></div></div>'+
+      '<div class="strip__panel"><div style="padding:14px;"><p class="eyebrow">Summer Routine Tracker</p><p style="margin:0;font-size:.95rem;">Lyra\u2019s pool visits jumped from ~1 to ~6 times a week, and the tint appeared during those same weeks. <b>Something recent changed how her hair looks.</b></p></div></div>'+
+    '</div>'+
+    '<div class="card"><p class="eyebrow">Interim claim \u2014 in your words</p>'+
+      '<div data-response="convergence1"></div></div>'+
+    navRow({nogate:true});
+  mountResponses(host);
+}
+
+/* ---------- 6. DECISION POINT 2 ---------- */
+function renderDp2Choice(){
+  el('section-6-dp2-choice').innerHTML =
+    '<p class="eyebrow eyebrow--gold">Decision Point 2 · Go deeper</p>'+
+    '<h2 class="page-title">What is it about the pool?</h2>'+
+    '<p class="page-lead">Finn is close. He knows swimming is the lead \u2014 now he needs to find out <em>why</em> pool water would change light-colored hair. Pick your next investigation.</p>'+
+    '<div class="dp-grid">'+
+      dpCard('dp2', DP2.pool)+
+      dpCard('dp2', DP2.swimmer)+
+    '</div>'+
+    '<div class="btn-row btn-row--split"><button class="btn-back" type="button" data-back>\u2190 Back</button></div>';
+}
+function chooseDp2(path){ state.decisions.dp2=path; logEvent('dp2',{path:path}); saveState(); goTo('section-7-dp2'); }
+</script>
+
+<script>
+'use strict';
+/* ==========================================================================
+   SECTION C (cont.) — sections 7-12 + sequence / classify / quiz helpers
+   ========================================================================== */
+
+/* ---------- SEQUENCE ORDERING ---------- */
+function seqOrder(kind){
+  if(kind==='photo'){ if(!state.dp1.photoOrder.length) state.dp1.photoOrder=['p3','p1','p4','p2']; return state.dp1.photoOrder; }
+  if(!state.dp2.sequence.length) state.dp2.sequence=['s3','s1','s4','s2']; return state.dp2.sequence;
+}
+function seqItems(kind){ return kind==='photo'?PHOTO_ITEMS:SEQ_ITEMS; }
+function paintSeq(containerId, kind){
+  var cont=el(containerId); if(!cont) return;
+  var order=seqOrder(kind), items=seqItems(kind);
+  cont.innerHTML=order.map(function(idv,i){
+    var it=items.filter(function(x){return x.id===idv;})[0];
+    return '<li class="seq__item"><span class="seq__num">'+(i+1)+'</span><span class="seq__text">'+esc(it.label)+'</span>'+
+      '<span class="seq__moves"><button type="button" data-seq-move="'+kind+'|'+i+'|up" aria-label="Move up"'+(i===0?' disabled':'')+'>\u2191</button>'+
+      '<button type="button" data-seq-move="'+kind+'|'+i+'|down" aria-label="Move down"'+(i===order.length-1?' disabled':'')+'>\u2193</button></span></li>';
+  }).join('');
+}
+function moveSeq(kind, index, dir){
+  var order=seqOrder(kind), j=dir==='up'?index-1:index+1;
+  if(j<0||j>=order.length) return;
+  var tmp=order[index]; order[index]=order[j]; order[j]=tmp;
+  paintSeq(kind==='photo'?'photoSeq':'seqList', kind); saveState();
+}
+function confirmSeq(kind){
+  var order=seqOrder(kind), correct=kind==='photo'?PHOTO_CORRECT:SEQ_CORRECT;
+  var ok=order.join(',')===correct.join(',');
+  if(kind==='photo'){ state.dp1.photoChecked=true; renderDp1(); }
+  else { state.dp2.sequenceChecked=true; renderDp2(); }
+  updateGates(); saveState();
+  toast(ok?'Order confirmed \u2014 nice sequencing!':'Order saved. Tip: think about which step has to come first.');
+}
+function classifyItem(itemId, choice){
+  state.dp2.classify[itemId]=choice; logEvent('classify',{item:itemId,choice:choice});
+  renderDp2(); updateGates(); saveState();
+}
+
+/* ---------- 7. DP2 INVESTIGATION ---------- */
+function renderDp2(){
+  var host=el('section-7-dp2');
+  if(state.decisions.dp2==='pool'){ host.innerHTML=dp2PoolHtml(); paintSeq('seqList','sequence'); }
+  else host.innerHTML=dp2SwimmerHtml();
+  mountResponses(host);
+}
+function dp2PoolHtml(){
+  var results = state.dp2.strandRevealed ? [
+    'No visible change. The hair looks the same.',
+    'Slightly dry, but <b>no green color</b>.',
+    'A clear <b>green tint</b> appears.'
+  ] : ['','',''];
+  var cls = state.dp2.strandRevealed ? '' : ' is-hidden';
+  var cols =
+    testCol('#DCEBF5','Plain water','A strand of light hair soaked in plain water.',results[0],cls)+
+    testCol('#E6F0DE','Chlorine only','A strand soaked in water with chlorine but no copper.',results[1],cls)+
+    testCol('#E7F2EC','Copper-containing','A strand soaked in water with a small amount of copper.',results[2],cls);
+  var diagram = state.dp2.strandRevealed ?
+    '<div style="margin-top:14px;">'+assetMarkup('copperDiagram','Diagram: copper compounds attach to the outside of light hair','asset--wide','Copper compounds attach to the <em>outside</em> of light hair \u2014 the genes inside are not changed.')+'</div>' : '';
+  var seqFb = state.dp2.sequenceChecked ?
+    '<div class="fb fb--info"><b>Cause and effect:</b> Frequent swimming \u2192 more contact with copper in the water \u2192 copper attaches to light hair \u2192 a visible green tint. The inherited hair color did not change; its <em>appearance</em> did.</div>' : '';
+  return '<p class="eyebrow">Evidence File 2A · The pool-water test</p>'+
+    '<h2 class="page-title">Testing the water</h2>'+
+    '<p class="page-lead">Finn sets up a hair-strand test with three cups of water. Only one difference matters: whether the water contains copper. Reveal the results and see which cup turns the hair green.</p>'+
+    '<div class="card">'+
+      '<div class="test-cols">'+cols+'</div>'+
+      (state.dp2.strandRevealed?'':'<div class="btn-row"><button class="btn btn--purple" type="button" data-reveal="strand">Reveal the test results</button></div>')+
+      diagram+
+    '</div>'+
+    '<div class="card"><p class="resp__section-label">Put the cause-and-effect steps in the right order (what happens first?):</p>'+
+      '<ul class="seq" id="seqList"></ul>'+
+      '<div class="btn-row"><button class="btn btn--purple" type="button" data-seq-confirm="sequence">Confirm the order</button></div>'+
+      seqFb+
+    '</div>'+
+    '<div class="card"><div data-response="copperChlorine"></div></div>'+
+    navRow({});
+}
+function testCol(swatch,title,desc,result,cls){
+  return '<div class="test-col'+cls+'"><div class="test-col__swatch" style="background:'+swatch+';"></div>'+
+    '<p class="test-col__title">'+esc(title)+'</p><p style="font-size:.78rem;color:var(--gray-600);margin:0 0 6px;">'+esc(desc)+'</p>'+
+    '<p class="test-col__result">'+(result||'')+'</p></div>';
+}
+function dp2SwimmerHtml(){
+  var table = state.dp2.swimmerViewed ?
+    '<div class="table-scroll" style="margin-top:12px;"><table class="data"><thead><tr><th>Swimmer</th><th>Natural hair</th><th>Pool visits / week</th><th>Green tint visible?</th></tr></thead><tbody>'+
+    '<tr><td>Finn</td><td>Blonde (light)</td><td>~1</td><td>Barely</td></tr>'+
+    '<tr><td>Ava</td><td>Brown (medium)</td><td>~5</td><td>Hard to see</td></tr>'+
+    '<tr class="flag"><td class="flag">Lyra</td><td>Blonde (light)</td><td class="flag">~6</td><td class="flag">Clearly visible</td></tr>'+
+    '<tr><td>Mateo</td><td>Dark</td><td>~6</td><td>Not visible</td></tr>'+
+    '<tr><td>Nia</td><td>Light blonde</td><td>~2</td><td>Slight</td></tr>'+
+    '</tbody></table></div>'+
+    '<div class="fb fb--info"><b>Pattern:</b> The tint is easiest to see when a swimmer has <em>light hair</em> AND goes in the pool <em>often</em>. Lyra matches both.</div>' :
+    '<div class="btn-row"><button class="btn btn--purple" type="button" data-reveal="swimmer">Reveal the swim-team comparison</button></div>';
+  var classify = state.dp2.swimmerViewed ?
+    '<div class="card"><p class="resp__section-label">Sort each factor: does it make a green tint MORE visible, or LESS visible?</p>'+
+      '<div>'+CLASSIFY_ITEMS.map(classifyRow).join('')+'</div></div>' : '';
+  var resp = state.dp2.swimmerViewed ? '<div class="card"><div data-response="whyLyra"></div></div>' : '';
+  return '<p class="eyebrow">Evidence File 2B · The swimmer comparison</p>'+
+    '<h2 class="page-title">Why Lyra and not Finn?</h2>'+
+    '<p class="page-lead">Finn and Lyra are fraternal twins \u2014 both naturally blonde. So why is the tint obvious on Lyra but not Finn? Compare five swimmers to find the pattern.</p>'+
+    '<div class="card">'+assetMarkup('twinCompare','Comparison of Finn and Lyra pool exposure','asset--wide')+table+'</div>'+
+    classify+resp+
+    navRow({});
+}
+function classifyRow(it){
+  var choice=state.dp2.classify[it.id];
+  return '<div class="classify-item'+(choice?' is-placed':'')+'"><span>'+esc(it.label)+'</span>'+
+    '<div class="chip-choices"><button type="button" class="'+(choice==='more'?'is-on':'')+'" data-classify="'+it.id+'|more">More visible</button>'+
+    '<button type="button" class="'+(choice==='less'?'is-on':'')+'" data-classify="'+it.id+'|less">Less visible</button></div></div>';
+}
+
+/* ---------- 8. CONVERGENCE 2 (centerpiece) ---------- */
+function renderConvergence2(){
+  var host=el('section-8-convergence2');
+  host.innerHTML =
+    '<p class="eyebrow eyebrow--purple">Page 9 · Solving the mystery</p>'+
+    '<h2 class="page-title">Case solved \u2014 in your own argument</h2>'+
+    '<div class="card">'+
+      assetMarkup('alienCrossed','The alien explanation crossed out because no evidence supports it','asset--wide','No evidence ever supported the alien idea \u2014 so Finn crosses it off.')+
+      '<div class="narr" style="margin-top:12px;"><p>Finn looks at everything he gathered. The alien idea? Fun, but there was never any evidence for it. The real story is science: Lyra <b>inherited</b> blonde hair, her <b>behavior</b> (frequent swimming) increased her contact with an <b>environmental condition</b> (copper in the pool water), and that changed how her inherited hair <em>looks</em> \u2014 without changing her genes.</p></div>'+
+      '<div class="callout callout--gold">This is your standards moment (5.L4U3.12): construct an argument that an inherited characteristic can be affected by behavior and environmental conditions.</div>'+
+    '</div>'+
+    '<div class="card"><p class="eyebrow eyebrow--gold">Your full explanation</p>'+
+      '<div data-response="convergence2"></div></div>'+
+    navRow({nogate:true});
+  mountResponses(host);
+}
+
+/* ---------- 9. APPLICATION ---------- */
+function renderApplication(){
+  var host=el('section-9-application');
+  host.innerHTML =
+    '<p class="eyebrow">Page 10 · Apply your evidence</p>'+
+    '<h2 class="page-title">Lyra\u2019s swim plan</h2>'+
+    '<p class="page-lead">Lyra loves swim team and does not want to quit. She asks Finn: is there a way to swim <em>and</em> keep the green tint from showing? Use your evidence to recommend a plan.</p>'+
+    '<div class="card">'+assetMarkup('hairCare','Comparison of swim hair-care routines and how much tint showed','asset--wide','A club test compared routines. The combination \u2014 wet hair first, swim cap, rinse after \u2014 left the least noticeable tint.')+'</div>'+
+    '<div class="card"><div data-response="application"></div></div>'+
+    navRow({nogate:true});
+  mountResponses(host);
+}
+
+/* ---------- 10. FINAL REPORT ---------- */
+function renderReport(){
+  var host=el('section-10-report');
+  var rec=finalTextFor('application');
+  host.innerHTML =
+    '<p class="eyebrow eyebrow--gold">Page 11 · Final investigation report</p>'+
+    '<h2 class="page-title">File your final report</h2>'+
+    '<div class="card">'+assetMarkup('finalScene','Finn completing the final Genetica Club case report','asset--wide')+'</div>'+
+    '<div class="card"><p class="eyebrow">Part 1 · Your final argument</p>'+
+      '<p class="helper" style="margin-bottom:4px;">Build this one fresh \u2014 it is your assessment of the whole case.</p>'+
+      '<div data-response="finalArgument"></div></div>'+
+    '<div class="card"><p class="eyebrow">Part 2 · Your recommendation on record</p>'+
+      '<p class="jrow__resp'+(rec?'':' is-empty')+'" style="background:var(--gray-50);border-radius:10px;padding:12px 14px;">'+(rec?esc(rec):'You have not saved a swim-plan recommendation yet. You can go back to add one.')+'</p></div>'+
+    '<div class="card"><p class="eyebrow">Part 3 · Reflect like a scientist</p>'+
+      '<div data-response="reflection"></div></div>'+
+    navRow({nextLabel:'Finish the case', nogate:true});
+  mountResponses(host);
+}
+
+/* ---------- 11. QUIZ ---------- */
+function renderQuiz(){
+  var host=el('section-11-quiz');
+  var c=state.quiz.choice;
+  var toggle =
+    '<div class="seg" role="group" aria-label="Take the optional quiz?">'+
+    '<button type="button" class="'+(c==='yes'?'is-on':'')+'" data-quiz-choice="yes">Yes, quiz me</button>'+
+    '<button type="button" class="'+(c==='no'?'is-on':'')+'" data-quiz-choice="no">Skip the quiz</button></div>';
+  var body='';
+  if(c==='yes') body=quizBodyHtml();
+  else if(c==='no') body='<div class="card"><p style="margin:0;">No problem \u2014 the quiz is optional. Your case journal and responses are already saved. Continue to finish.</p></div>';
+  host.innerHTML =
+    '<p class="eyebrow eyebrow--purple">Optional check</p>'+
+    '<h2 class="page-title">Six quick questions</h2>'+
+    '<p class="page-lead">Want to test the big idea \u2014 inherited traits affected by behavior and environment? It is completely optional and does not change your journal.</p>'+
+    '<div class="card">'+toggle+'</div>'+
+    body+
+    navRow({nextLabel:'Finish the case', nogate:true});
+}
+function quizBodyHtml(){
+  var answered=0, correct=0;
+  var qs = QUIZ.map(function(q,qi){
+    var ans=state.quiz.answers[q.id];
+    var answeredThis = ans!==undefined && ans!==null;
+    if(answeredThis){ answered++; if(q.options[ans].correct) correct++; }
+    var opts=q.options.map(function(o,oi){
+      var on = ans===oi;
+      var cls='opt';
+      if(answeredThis){ if(o.correct) cls+=' is-correct'; else if(on) cls+=' is-wrong'; }
+      else if(on) cls+=' is-selected';
+      return '<button class="'+cls+'" type="button" role="radio" aria-checked="'+(on?'true':'false')+'" data-quiz-ans="'+q.id+'|'+oi+'"><span class="opt__mark" aria-hidden="true"></span>'+esc(o.text)+'</button>';
+    }).join('');
+    var fb = answeredThis ? '<div class="fb '+(q.options[ans].correct?'fb--ok':'fb--rethink')+'">'+q.options[ans].fb+'</div>' : '';
+    return '<div class="quiz-q"><p class="quiz-q__num">Question '+(qi+1)+' of 6</p><p class="quiz-q__stem">'+q.icon+' '+esc(q.stem)+'</p><div role="radiogroup" aria-label="Question '+(qi+1)+'">'+opts+'</div>'+fb+'</div>';
+  }).join('');
+  var score = answered===QUIZ.length ? '<div class="card" style="text-align:center;"><p class="quiz-score">You answered '+correct+' of '+QUIZ.length+' correctly.</p><p class="helper" style="margin:0;">Every green-hair mystery came down to the same idea: an inherited trait, affected by behavior and environment.</p></div>' : '';
+  return qs+score;
+}
+function quizChoose(v){ state.quiz.choice=v; if(v==='no') state.quiz.answers={}; logEvent('quiz-choice',{choice:v}); saveState(); renderQuiz(); updateGates(); }
+function quizAnswer(qid,idx){
+  state.quiz.answers[qid]=idx;
+  var allDone=QUIZ.every(function(q){ return state.quiz.answers[q.id]!==undefined; });
+  if(allDone){ var c=QUIZ.reduce(function(a,q){ return a+(q.options[state.quiz.answers[q.id]].correct?1:0); },0); state.quiz.score=c; state.quiz.submitted=true; }
+  logEvent('quiz-answer',{q:qid,idx:idx}); saveState(); renderQuiz();
+}
+
+/* ---------- 12. COMPLETE ---------- */
+function renderComplete(){
+  if(!state.completed){ state.completed=true; state.lessonEndTime=new Date().toISOString(); stopTick(); logEvent('lesson-complete',{}); saveState(); }
+  el('section-12-complete').innerHTML =
+    '<div class="card card--midnight card--pad-lg" style="text-align:center;">'+
+      '<div class="badge"><span class="badge__mark">\uD83C\uDFC5</span><span class="badge__title">Case Solved</span><span class="badge__sub">Genetica Club</span></div>'+
+      '<p class="eyebrow" style="color:var(--gold);">Investigation complete</p>'+
+      '<h2 class="page-title" style="color:#fff;">You cracked the Green Hair Mystery</h2>'+
+      '<p style="color:#D7E0F2;">You showed that Lyra\u2019s <b>inherited</b> blonde hair was affected by her <b>behavior</b> (frequent swimming) and an <b>environmental condition</b> (copper in the pool water) \u2014 an argument built entirely from evidence. That is standard 5.L4U3.12, solved.</p>'+
+      '<div class="btn-row" style="justify-content:center;"><button class="btn btn--gold btn--lg" type="button" data-export>\u2B07 Export my Investigation Journal</button></div>'+
+      (state.resumeCode?'<p style="color:#B9C6E4;font-size:.82rem;margin-top:14px;">Case code: <b>'+esc(state.resumeCode)+'</b> \u2014 keep this to resume on the same device.</p>':'')+
+    '</div>'+
+    '<div class="card"><p class="eyebrow">Review your work</p><p class="helper">Open the <b>Journal</b> button up top to see every response, or export it as a web page to print or save as a PDF.</p>'+
+    '<div class="btn-row"><button class="btn btn--ghost" type="button" data-back>\u2190 Back</button><button class="btn btn--primary" type="button" id="openJournalFromEnd">\uD83D\uDCD3 Open my Journal</button></div></div>';
+  var b=el('openJournalFromEnd'); if(b) b.addEventListener('click', openDrawer);
+}
+</script>
+
+<script>
+'use strict';
+/* ==========================================================================
+   SECTION D — EXPORT, RESTART, INIT
+   ========================================================================== */
+
+function sanitizeFilename(s){ return String(s||'').replace(/[^a-z0-9_\-]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,40); }
+
+function exportCss(){
+  return 'body{font-family:Lexend,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1C2333;background:#F1ECE1;margin:0;line-height:1.6;}'+
+  '.wrap{max-width:900px;margin:0 auto;padding:28px 20px 60px;}'+
+  '.cover{background:linear-gradient(150deg,#372A6E,#281E52);color:#fff;border-radius:16px;padding:32px;margin-bottom:24px;}'+
+  '.cover h1{margin:0;font-size:2rem;}.cover .sub{font-size:1.05rem;color:#D7E0F2;margin:6px 0 18px;}'+
+  '.cover .kick{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;font-weight:800;color:#F6B23A;margin:0;}'+
+  '.cover dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:0;}'+
+  '.cover dt{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#B9C6E4;font-weight:800;}'+
+  '.cover dd{margin:2px 0 0;font-weight:700;font-size:.92rem;}'+
+  '.blk{background:#fff;border:1px solid #E1E5EC;border-radius:14px;padding:22px;margin-bottom:18px;page-break-inside:avoid;}'+
+  '.blk h2{color:#372A6E;font-size:1.2rem;margin:0 0 12px;border-bottom:2px solid #ECE9F6;padding-bottom:8px;}'+
+  '.std{border-left:4px solid #F6B23A;background:#FFF3D6;border-radius:0 8px 8px 0;padding:10px 14px;font-size:.9rem;margin:0;}'+
+  '.resp-blk{border:1px solid #E1E5EC;border-radius:12px;padding:16px;margin-bottom:14px;page-break-inside:avoid;}'+
+  '.resp-blk .prompt{font-weight:700;color:#A63368;margin:0 0 8px;font-size:.95rem;}'+
+  '.resp-blk .text{margin:0;font-size:.95rem;color:#262D3A;background:#FBF6EC;border-left:3px solid #1BA398;border-radius:0 8px 8px 0;padding:10px 13px;white-space:pre-wrap;}'+
+  '.resp-blk .text.empty{font-style:italic;color:#8B93A3;border-left-color:#C9CFDA;background:#F8F9FB;}'+
+  '.resp-blk .tag{display:inline-block;font-size:.58rem;letter-spacing:.07em;text-transform:uppercase;font-weight:800;color:#137268;background:#E1F5F1;border-radius:999px;padding:3px 10px;margin-top:9px;}'+
+  '.pathrow{display:flex;gap:14px;flex-wrap:wrap;}'+
+  '.pathrow div{flex:1 1 220px;background:#F8F9FB;border:1px solid #E1E5EC;border-radius:10px;padding:11px 14px;}'+
+  '.pathrow dt{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:#565E6E;font-weight:800;}'+
+  '.pathrow dd{margin:3px 0 0;font-weight:700;font-size:.92rem;color:#372A6E;}'+
+  '.quiz-line{font-size:.9rem;margin:0 0 6px;padding-left:22px;position:relative;}'+
+  '.quiz-line .mk{position:absolute;left:0;top:0;font-weight:800;}'+
+  '.ok{color:#3F7D66;}.no{color:#A9740A;}'+
+  'footer{font-size:.72rem;color:#565E6E;text-align:center;margin:32px auto 0;max-width:720px;line-height:1.5;}'+
+  '@media print{body{background:#fff;}.wrap{padding:0;}.blk{box-shadow:none;}h2{page-break-after:avoid;}}';
+}
+function exResponseBlock(id){
+  var cfg=RESPONSE_PROMPTS[id], txt=finalTextFor(id);
+  var body = txt ? '<p class="text">'+esc(txt)+'</p>'
+                 : '<p class="text empty">No response saved.</p>';
+  return '<div class="resp-blk"><p class="prompt">'+esc(cfg.prompt)+'</p>'+body+'</div>';
+}
+function exQuiz(){
+  if(state.quiz.choice!=='yes' || !state.quiz.submitted) return '';
+  var lines=QUIZ.map(function(q,i){
+    var a=state.quiz.answers[q.id]; var ok=(a!=null)&&q.options[a].correct;
+    return '<p class="quiz-line"><span class="mk '+(ok?'ok':'no')+'">'+(ok?'\u2713':'\u2717')+'</span>Q'+(i+1)+': '+(a!=null?esc(q.options[a].text):'(no answer)')+'</p>';
+  }).join('');
+  return '<div class="blk"><h2>Optional quiz</h2><p style="font-weight:700;color:#372A6E;">Score: '+state.quiz.score+' of '+QUIZ.length+'</p>'+lines+'</div>';
+}
+function buildExportHtml(name){
+  var dp1 = state.decisions.dp1?DP1[state.decisions.dp1].trackerLabel:'\u2014';
+  var dp2 = state.decisions.dp2?DP2[state.decisions.dp2].trackerLabel:'\u2014';
+  return '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">'+
+    '<title>Green Hair Mystery Journal'+(name?' \u2014 '+esc(name):'')+'</title>'+
+    '<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700;800&display=swap" rel="stylesheet">'+
+    '<style>'+exportCss()+'</style></head><body><div class="wrap">'+
+    '<header class="cover"><p class="kick">Stories in Science · Arizona Grade 5</p>'+
+      '<h1>Alien Alert: The Green Hair Mystery</h1><p class="sub">Genetica Club \u2014 Investigation Journal</p>'+
+      '<dl>'+
+        '<div><dt>Student</dt><dd>'+esc(name||'Not provided')+'</dd></div>'+
+        '<div><dt>Case code</dt><dd>'+esc(state.resumeCode||'\u2014')+'</dd></div>'+
+        '<div><dt>Status</dt><dd>'+(state.completed?'Case complete':'In progress')+'</dd></div>'+
+        '<div><dt>Started</dt><dd>'+esc(formatStamp(state.lessonStartTime))+'</dd></div>'+
+        '<div><dt>Active time</dt><dd>'+esc(formatClock(state.elapsedSeconds))+'</dd></div>'+
+        '<div><dt>Exported</dt><dd>'+esc(formatStamp(new Date().toISOString()))+'</dd></div>'+
+      '</dl></header>'+
+    '<div class="blk"><h2>Arizona Science Standard</h2><p class="std">'+esc(AZ_STANDARD)+'</p>'+
+      '<div class="pathrow" style="margin-top:14px;"><div><dt>Evidence file investigated</dt><dd>'+esc(dp1)+'</dd></div><div><dt>Deeper investigation</dt><dd>'+esc(dp2)+'</dd></div></div></div>'+
+    '<div class="blk"><h2>Investigation responses</h2>'+PROMPT_ORDER.map(exResponseBlock).join('')+'</div>'+
+    exQuiz()+
+    '<footer>\u00A9 2026 Brooke Toon. All rights reserved. Part of the Stories in Science Framework. '+
+      'Generative AI tools were used to support the development of this instructional material. '+
+      'This content may not be reproduced, distributed, modified, or used for commercial purposes without permission.</footer>'+
+    '</div></body></html>';
+}
+function downloadFile(filename, content){
+  try{
+    var blob=new Blob([content],{type:'text/html;charset=utf-8'});
+    var url=URL.createObjectURL(blob), a=document.createElement('a');
+    a.href=url; a.download=filename; document.body.appendChild(a); a.click();
+    setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); },1500);
+  }catch(e){ toast('Your browser blocked the download. Try again or use a different browser.'); }
+}
+function doExportJournal(){
+  var raw=(el('exportNameInput')||{}).value||''; var clean=sanitizeFilename(raw);
+  state.exportName=raw;
+  var filename=(clean?clean+'_':'')+'GreenHairMysteryJournal.html';
+  closeModal('exportModal'); toast('Building your journal\u2026');
+  var html=buildExportHtml(raw); downloadFile(filename,html);
+  logEvent('export',{named:!!clean}); saveState(); toast('Journal downloaded.');
+}
+
+/* ---------- RESTART ---------- */
+function doRestart(){
+  clearLessonStorage(); stopTick(); stopSpeech();
+  state=freshState();
+  closeModal('restartModal'); closeDrawer();
+  document.body.classList.remove('tracker-on');
+  updateHeaderChip(); renderJournalDrawer();
+  goTo('section-0-launch', false);
+  toast('Investigation reset.');
+}
+
+/* ---------- INIT ---------- */
+function beginInvestigation(){
+  if(!state.resumeCode) state.resumeCode=generateResumeCode();
+  beginTiming(); updateHeaderChip(); saveState();
+  goTo('section-1-breakfast');
+}
+function handleClick(e){
+  var t;
+  if((t=e.target.closest('[data-begin]'))){ beginInvestigation(); return; }
+  if((t=e.target.closest('[data-next]'))){ if(!t.disabled) goNext(); return; }
+  if((t=e.target.closest('[data-back]'))){ if(!t.disabled) goBack(); return; }
+  if((t=e.target.closest('[data-dp1]'))){ chooseDp1(t.getAttribute('data-dp1')); return; }
+  if((t=e.target.closest('[data-dp2]'))){ chooseDp2(t.getAttribute('data-dp2')); return; }
+  if((t=e.target.closest('[data-alien-toggle]'))){ var ov=el('alienOverlay'); if(ov){ ov.hidden=!ov.hidden; t.textContent=ov.hidden?'\uD83D\uDC7D Show what Finn imagines':'\uD83D\uDC7D Hide'; } return; }
+  if((t=e.target.closest('[data-seq-move]'))){ var pm=t.getAttribute('data-seq-move').split('|'); moveSeq(pm[0],parseInt(pm[1],10),pm[2]); return; }
+  if((t=e.target.closest('[data-seq-confirm]'))){ confirmSeq(t.getAttribute('data-seq-confirm')); return; }
+  if((t=e.target.closest('[data-pattern]'))){ state.dp1.patternPick=t.getAttribute('data-pattern'); renderDp1(); updateGates(); saveState(); return; }
+  if((t=e.target.closest('[data-behavior]'))){ state.dp1.routineBehavior=t.getAttribute('data-behavior'); renderDp1(); updateGates(); saveState(); return; }
+  if((t=e.target.closest('[data-reveal]'))){ doReveal(t.getAttribute('data-reveal')); return; }
+  if((t=e.target.closest('[data-classify]'))){ var cp=t.getAttribute('data-classify').split('|'); classifyItem(cp[0],cp[1]); return; }
+  if((t=e.target.closest('[data-quiz-choice]'))){ quizChoose(t.getAttribute('data-quiz-choice')); return; }
+  if((t=e.target.closest('[data-quiz-ans]'))){ var qp=t.getAttribute('data-quiz-ans').split('|'); quizAnswer(qp[0],parseInt(qp[1],10)); return; }
+  if((t=e.target.closest('[data-resp-save]'))){ saveResponse(t.getAttribute('data-resp-save')); return; }
+  if((t=e.target.closest('[data-export]'))){ openModal('exportModal'); return; }
+  if((t=e.target.closest('[data-close-modal]'))){ closeModal(t.getAttribute('data-close-modal')); return; }
+  if((t=e.target.closest('.tts-btn'))){ toggleSpeech(t); return; }
+}
+function doReveal(what){
+  if(what==='timeline'){ state.dp1.timelineViewed=true; renderDp1(); }
+  else if(what==='strand'){ state.dp2.strandRevealed=true; renderDp2(); }
+  else if(what==='swimmer'){ state.dp2.swimmerViewed=true; renderDp2(); }
+  updateGates(); saveState();
+}
+function renderInitial(){
+  var target = (state.started && sectionIndex(state.currentSection)>=0) ? state.currentSection : 'section-0-launch';
+  qsa('.section').forEach(function(s){ s.classList.remove('active'); });
+  var node=el(target); if(node) node.classList.add('active');
+  state.currentSection=target;
+  renderSection(target);
+  updateTracker(); updateProgress(); updateGates();
+  scheduleMeasure();
+}
+function init(){
+  loadState();
+  if(state.started && !state.completed) startTick();
+  renderGlossary(); renderJournalDrawer(); updateHeaderChip();
+
+  document.addEventListener('click', handleClick);
+  el('glossaryBtn').addEventListener('click', function(){ openModal('glossaryModal'); });
+  el('journalBtn').addEventListener('click', openDrawer);
+  el('restartBtn').addEventListener('click', function(){ openModal('restartModal'); });
+  el('drawerClose').addEventListener('click', closeDrawer);
+  el('drawerBackdrop').addEventListener('click', closeDrawer);
+  el('confirmRestart').addEventListener('click', doRestart);
+  el('confirmExport').addEventListener('click', doExportJournal);
+  qsa('.modal-overlay').forEach(function(m){ m.addEventListener('click', function(e){ if(e.target===m) m.classList.remove('is-open'); }); });
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape'){ closeDrawer(); qsa('.modal-overlay.is-open').forEach(function(m){ m.classList.remove('is-open'); }); }
+  });
+  window.addEventListener('resize', scheduleMeasure);
+  window.addEventListener('beforeunload', saveState);
+
+  renderInitial();
+  scheduleMeasure(); setTimeout(measureChrome, 300);
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
+else init();
+</script>
+</body>
+</html>

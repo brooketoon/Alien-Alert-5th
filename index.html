@@ -1121,7 +1121,7 @@ function renderBreakfast(){
 
 /* ---------- 2. GENETICA ---------- */
 function renderGenetica(){
-  var narr = 'Finn and Lyra were fraternal twins. They were the same age, lived in the same house, and both had naturally blonde hair. So why was only Lyra\u2019s hair changing? During the school year, Finn attended Genetica, an after-school club where students investigated inherited characteristics, variation, and puzzling patterns among living things. His club leader always said: a surprising observation is where an investigation begins, not where it ends. Finn reached for his Genetica notebook. The club would not meet again until school started. He would have to investigate this himself.';
+  var narr = 'Finn and Lyra are fraternal twins. They are the same age, live in the same house, and both have naturally blonde hair. So why was only Lyra\u2019s hair changing? During the school year, Finn was a memeber of <strong>Genetica</strong>, an after-school club where students investigated inherited characteristics, variation, and puzzling patterns among living things. His club leader always said: a surprising observation is where an investigation begins, not where it ends. Finn reached for his Genetica notebook. The club would not meet again until school started. He would have to investigate this himself.';
   el('section-2-genetica').innerHTML =
     '<p class="eyebrow eyebrow--purple">Page 2 \u00B7 The investigator</p>'+
     '<h2 class="page-title">A Genetica Club investigation</h2>'+
@@ -1132,7 +1132,7 @@ function renderGenetica(){
         '<p>Finn and Lyra were fraternal twins. They were the same age, lived in the same house, and both had naturally blonde hair.</p>'+
         '<p><em>So why was only Lyra\u2019s hair changing?</em></p>'+
         '<p>During the school year, Finn attended Genetica, an after-school club where students investigated inherited characteristics, variation, and puzzling patterns among living things. His club leader always said:</p>'+
-        '<div class="callout callout--teal" style="margin:10px 0;">\u201CA surprising observation is where an investigation begins \u2014 not where it ends.\u201D</div>'+
+        '<div class="callout callout--teal" style="margin:10px 0;">\u201CA surprising observation is where an investigation begins, not where it ends.\u201D</div>'+
         '<p>Finn reached for his Genetica notebook. The club would not meet again until school started. He would have to investigate this himself.</p>'+
         '<div class="thought">He briefly checked his own hair in the reflection of his spoon. <em>And I should probably find out whether mine could turn green too.</em></div>'+
       '</div>'+
@@ -1149,18 +1149,36 @@ function renderDp1Choice(){
   el('section-3-dp1-choice').innerHTML =
     '<p class="eyebrow eyebrow--gold">Case 01 \u00B7 Decision Point 1</p>'+
     '<h2 class="page-title">Opening the case</h2>'+
-    '<div class="card">'+
-      assetMarkup('caseLaunch','Finn opens Case 01 in his Genetica Club notebook','asset--wide')+
-      '<div class="narr" style="margin-top:12px;">'+
-        '<div class="dialogue"><span class="dialogue__who">Finn:</span><span>\u201CWhat has changed since summer started?\u201D</span></div>'+
-        '<div class="dialogue dialogue--lyra"><span class="dialogue__who">Lyra:</span><span>\u201CA lot of things. It\u2019s summer.\u201D</span></div>'+
-        '<div class="dialogue"><span class="dialogue__who">Finn:</span><span>\u201CWill you help me figure out which changes might matter?\u201D</span></div>'+
-        '<div class="dialogue dialogue--lyra"><span class="dialogue__who">Lyra:</span><span>\u201CAre you writing \u2018alien transformation\u2019 in there?\u201D</span></div>'+
-        '<div class="dialogue"><span class="dialogue__who">Finn:</span><span>\u201CNot as the final conclusion.\u201D</span></div>'+
-        '<div class="dialogue dialogue--lyra"><span class="dialogue__who">Lyra:</span><span>\u201CFine. But you need actual evidence.\u201D</span></div>'+
-      '</div>'+
-      '<div class="callout callout--gold" style="margin-top:14px;"><p class="eyebrow eyebrow--gold" style="margin-bottom:4px;">Case 01: The Green Hair Mystery</p><p style="margin:0;"><b>Investigation question:</b> Why is Lyra\u2019s hair developing a green tint while Finn\u2019s remains blonde?</p></div>'+
+'<div class="card">'+
+  assetMarkup('caseLaunch','Finn opens Case 01 in his Genetica Club notebook','asset--wide')+
+
+  '<div style="display:flex; flex-wrap:wrap; align-items:center; gap:20px; margin-top:12px;">'+
+
+    '<div class="narr" style="flex:1 1 420px; margin:0;">'+
+      '<p>Finn dives right in!</p>'+
+      '<div class="dialogue"><span class="dialogue__who">Finn:</span><span>\u201CWhat has changed since summer started?\u201D</span></div>'+
+      '<div class="dialogue dialogue--lyra"><span class="dialogue__who">Lyra:</span><span>\u201CA lot of things. It\u2019s summer.\u201D</span></div>'+
+      '<div class="dialogue"><span class="dialogue__who">Finn:</span><span>\u201CWill you help me figure out which changes might matter?\u201D</span></div>'+
+      '<div class="dialogue dialogue--lyra"><span class="dialogue__who">Lyra:</span><span>\u201CAre you writing \u2018alien transformation\u2019 in there?\u201D</span></div>'+
+      '<div class="dialogue"><span class="dialogue__who">Finn:</span><span>\u201CNot as the final conclusion.\u201D</span></div>'+
+      '<div class="dialogue dialogue--lyra"><span class="dialogue__who">Lyra:</span><span>\u201CFine. But you need actual evidence.\u201D</span></div>'+
     '</div>'+
+
+    '<div style="flex:0 1 340px; margin-left:auto;">'+
+      assetMarkup(
+        'case01',
+        'Finn and Lyra begin investigating Case 01: The Green Hair Mystery',
+        'asset--wide'
+      )+
+    '</div>'+
+
+  '</div>'+
+
+  '<div class="callout callout--gold" style="margin-top:14px;">'+
+    '<p class="eyebrow eyebrow--gold" style="margin-bottom:4px;">Case 01: The Green Hair Mystery</p>'+
+    '<p style="margin:0;"><b>Investigation question:</b> Why is Lyra\u2019s hair developing a green tint while Finn\u2019s remains blonde?</p>'+
+  '</div>'+
+'</div>'+
     '<h3 class="page-title" style="font-size:1.25rem;">Where should Finn begin?</h3>'+
     '<p class="page-lead" style="margin-top:-2px;">Pick the evidence file you want to open first. You will see the other file\u2019s findings later, too.</p>'+
     '<div class="dp-grid">'+

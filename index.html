@@ -360,9 +360,9 @@ table.data .flag{font-weight:700;color:var(--sea-dark);}
 <header class="app-header" id="appHeader">
   <div class="app-header__inner">
     <div class="brand">
-      <span class="brand-pill">Genetica Club</span>
+      <span class="brand-pill">Stories in Science</span>
       <span class="brand-text">
-        <span class="brand-series">Stories in Science · Grade 5</span>
+        <span class="brand-series">Arizona Grade 5</span>
         <span class="brand-title">Alien Alert: The Green Hair Mystery</span>
       </span>
     </div>
@@ -1043,26 +1043,78 @@ function renderBreakfast(){
   el('section-1-breakfast').innerHTML =
     '<p class="eyebrow">Page 1 \u00B7 The phenomenon</p>'+
     '<h2 class="page-title">Something strange at breakfast</h2>'+
-    '<div class="card">'+
-      assetMarkup('breakfast','Finn notices Lyra\u2019s blonde hair has developed a green tint at the breakfast table','asset--wide')+
-      ttsButton(narr)+
-      '<div class="narr">'+
-        '<p>Summer vacation started three weeks ago.</p>'+
-        '<p>No alarms. No homework. No after-school clubs. Just slow mornings and breakfast at the kitchen table.</p>'+
-        '<p>Finn stopped with his spoon halfway to his mouth. The morning light had caught Lyra\u2019s hair. Her naturally blonde hair now had a noticeable green tint.</p>'+
-        '<p><em>Was her hair always that color?</em> Finn glanced at the family photograph on the wall. Both twins had blonde hair in the picture. No. Definitely not.</p>'+
-        '<div class="dialogue dialogue--lyra"><span class="dialogue__who">Lyra:</span><span>\u201CWhy are you staring at me?\u201D</span></div>'+
-        '<div class="dialogue"><span class="dialogue__who">Finn:</span><span>\u201CI\u2019m not.\u201D</span></div>'+
-        '<div class="dialogue dialogue--lyra"><span class="dialogue__who">Lyra:</span><span>\u201CYour spoon has been floating in the air for ten seconds.\u201D</span></div>'+
-        '<div class="dialogue"><span class="dialogue__who">Finn:</span><span>\u201CYour hair looks green.\u201D</span></div>'+
-        '<div class="dialogue dialogue--lyra"><span class="dialogue__who">Lyra:</span><span>\u201CI know. It started looking a little different a few days ago. Now it\u2019s much easier to see.\u201D</span></div>'+
-        '<div class="thought">Her hair was blonde when summer started. Now it had a green tint. Several explanations were possible. One of them was aliens.</div>'+
-         '<div style="flex:1 1 260px;">'+assetMarkup('tableAlien','Finn imagines Lyra as a friendly green alien at the breakfast table','asset--wide')+'</div>'+
+'<div class="card">'+
 
-      '</div>'+
+  assetMarkup(
+    'breakfast',
+    'Finn notices Lyra\u2019s blonde hair has developed a green tint at the breakfast table',
+    'asset--wide'
+  )+
 
-      '</div>'+
+  ttsButton(narr)+
+
+  '<div class="narr">'+
+
+    '<p>Summer vacation started three weeks ago.</p>'+
+
+    '<p>No alarms. No homework. No after-school clubs. Just slow mornings and breakfast at the kitchen table.</p>'+
+
+    '<p>Finn stopped with his spoon halfway to his mouth. The morning light had caught Lyra\u2019s hair. Her naturally blonde hair now had a noticeable green tint.</p>'+
+
+    '<p><em>Was her hair always that color?</em> Finn glanced at the family photograph on the wall. Both twins had blonde hair in the picture. No. Definitely not.</p>'+
+
+    '<div class="dialogue dialogue--lyra">'+
+      '<span class="dialogue__who">Lyra:</span>'+
+      '<span>\u201CWhy are you staring at me?\u201D</span>'+
     '</div>'+
+
+    '<div class="dialogue">'+
+      '<span class="dialogue__who">Finn:</span>'+
+      '<span>\u201CI\u2019m not.\u201D</span>'+
+    '</div>'+
+
+    '<div class="dialogue dialogue--lyra">'+
+      '<span class="dialogue__who">Lyra:</span>'+
+      '<span>\u201CYour spoon has been floating in the air for ten seconds.\u201D</span>'+
+    '</div>'+
+
+    '<div class="dialogue">'+
+      '<span class="dialogue__who">Finn:</span>'+
+      '<span>\u201CYour hair looks green.\u201D</span>'+
+    '</div>'+
+
+    '<div class="dialogue dialogue--lyra">'+
+      '<span class="dialogue__who">Lyra:</span>'+
+      '<span>\u201CI know. It started looking a little different a few days ago. Now it\u2019s much easier to see.\u201D</span>'+
+    '</div>'+
+
+    '<div style="'+
+      'display:flex;'+
+      'flex-wrap:wrap;'+
+      'align-items:center;'+
+      'gap:22px;'+
+      'margin-top:20px;'+
+    '">'+
+
+      '<div style="flex:1 1 340px;">'+
+        '<div class="thought" style="margin:0;">'+
+          'Her hair was blonde when summer started. Now it had a green tint. Several explanations were possible. One of them was aliens.'+
+        '</div>'+
+      '</div>'+
+
+      '<div style="flex:1 1 260px; max-width:380px; margin-left:auto;">'+
+        assetMarkup(
+          'tableAlien',
+          'Finn imagines Lyra as a friendly green alien at the breakfast table',
+          'asset--wide'
+        )+
+      '</div>'+
+
+    '</div>'+
+
+  '</div>'+
+
+'</div>'
     '<div class="card callout--teal" style="border:none;">'+
       '<p class="eyebrow">Your investigator question</p>'+
       '<p style="font-size:1.06rem;margin:0 0 8px;"><b>Why did Lyra\u2019s blonde hair develop a green tint?</b></p>'+

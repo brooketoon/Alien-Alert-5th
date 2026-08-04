@@ -386,7 +386,7 @@ table.data .flag{font-weight:700;color:var(--sea-dark);}
 }
 .progress-track,.code-chip{display:none!important;}
 .container,.foot{max-width:var(--lesson-content-max);}
-.app-header__inner{max-width:calc(var(--lesson-content-max) + 40px);}
+.app-header__inner{max-width:1400px;}
 body.launch-mode .header-actions{display:none;}
 .header-actions{flex-wrap:nowrap;}
 .hbtn{
@@ -394,7 +394,7 @@ body.launch-mode .header-actions{display:none;}
   padding:9px 13px; font-size:.72rem;
 }
 .tracker__inner{
-  max-width:calc(var(--lesson-content-max) + 40px);
+  max-width:1400px;
   display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px;
 }
 .tstep{
@@ -402,8 +402,8 @@ body.launch-mode .header-actions{display:none;}
   border-width:2px; position:relative;
 }
 .tstep__copy{min-width:0;}
-.tstep__label{display:block;line-height:1.25;}
-.tstep__value{display:block;line-height:1.25;margin-top:3px;}
+.tstep__label{display:block;line-height:1.2;}
+.tstep__value{display:block;line-height:1.2;margin-top:2px;font-size:.68rem;}
 .tstep.is-complete{border-color:var(--sea);background:var(--sea-light);}
 .tstep.is-complete .tstep__num{background:var(--sea-dark);color:#fff;}
 .tstep.is-current{border-color:var(--gold-dark);background:var(--gold-light);box-shadow:0 0 0 2px rgba(169,116,10,.12);}
@@ -525,7 +525,6 @@ body.surface-open{overflow:hidden;}
 <section aria-label="Solving the green hair mystery" class="section" id="section-8-convergence2"></section>
 <section aria-label="Lyra's swim plan" class="section" id="section-9-application"></section>
 <section aria-label="Final investigation report" class="section" id="section-10-report"></section>
-<section aria-label="Optional standards quiz" class="section" id="section-11-quiz"></section>
 <section aria-label="Case complete" class="section" id="section-12-complete"></section>
 </div>
 <footer class="foot">
@@ -600,7 +599,7 @@ var SECTION_ORDER = [
   'section-0-launch','section-1-breakfast','section-2-genetica',
   'section-3-dp1-choice','section-4-dp1','section-5-convergence1','section-6-dp2-choice',
   'section-7-dp2','section-7b-converge','section-8-convergence2','section-9-application','section-10-report',
-  'section-11-quiz','section-12-complete'
+  'section-12-complete'
 ];
 var SECTION_LABELS = {
   'section-0-launch':'Launch',
@@ -609,7 +608,7 @@ var SECTION_LABELS = {
   'section-5-convergence1':'Two files, one pattern','section-6-dp2-choice':'A deeper investigation',
   'section-7-dp2':'Testing the lead','section-7b-converge':'Two tests, one cause','section-8-convergence2':'Solving the green hair mystery',
   'section-9-application':'Lyra\u2019s swim plan','section-10-report':'Final investigation report',
-  'section-11-quiz':'Optional standards quiz','section-12-complete':'Case complete'
+  'section-12-complete':'Case complete'
 };
 
 /* ---------- IMAGE ASSETS ---------- */
@@ -1103,25 +1102,9 @@ function interactiveComplete(key){
   return !!(state.interactives[key]&&state.interactives[key]._completed);
 }
 function validationForScreen(screenId){
-  if(screenId==='section-3-dp1-choice'&&!state.decisions.dp1){
-    return {message:'Choose one evidence source before continuing.',selector:'.dp-grid'};
-  }
-  if(screenId==='section-4-dp1'){
-    var first=state.decisions.dp1;
-    if(!first) return {message:'Choose one evidence source before continuing.',selector:'.ix-embed'};
-    if(!interactiveComplete(first)) return {message:'Complete the selected evidence file before continuing.',selector:'.ix-embed'};
-  }
-  if(screenId==='section-6-dp2-choice'&&!state.decisions.dp2){
-    return {message:'Choose one deeper investigation before continuing.',selector:'.dp-grid'};
-  }
-  if(screenId==='section-7-dp2'){
-    var second=state.decisions.dp2;
-    if(!second) return {message:'Choose one deeper investigation before continuing.',selector:'.ix-embed'};
-    if(!interactiveComplete(second)) return {message:'Complete the selected deeper investigation before continuing.',selector:'.ix-embed'};
-  }
-  if(screenId==='section-9-application'&&!interactiveComplete('swimplan')){
-    return {message:'Complete Lyra’s swim-plan recommendation before continuing.',selector:'.ix-embed'};
-  }
+  // Continue is a navigation control, not an assessment gate: students are
+  // never required to make a choice, complete an interactive, or write a
+  // response before moving forward.
   return null;
 }
 function clearValidation(section){
@@ -1713,7 +1696,6 @@ function renderSection(id){
     case 'section-8-convergence2': return renderConvergence2();
     case 'section-9-application': return renderApplication();
     case 'section-10-report': return renderReport();
-    case 'section-11-quiz': return renderQuiz();
     case 'section-12-complete': return renderComplete();
   }
 }
@@ -2338,10 +2320,11 @@ function renderReport(){
 }
 
 /* ---------- 11. QUIZ ---------- */
-function renderQuiz(){
+function renderCompleteQuizArea(){
+  var host=el('completeQuizArea');
+  if(!host) return;
   state.quiz.opened=true;
   saveState();
-  var host=el('section-11-quiz');
   var c=state.quiz.choice;
   var toggle =
     '<div class="seg" role="group" aria-label="Would you like to take the optional quiz?">'+
@@ -2355,13 +2338,12 @@ function renderQuiz(){
       '<button class="btn btn--gold" type="button" data-export>\u2B07 Export Investigation Journal</button>'+
     '</div>';
   host.innerHTML =
-    '<p class="eyebrow eyebrow--purple">Optional standards quiz</p>'+
-    '<h2 class="page-title">Optional Standards Quiz</h2>'+
-    '<p class="page-lead">Would you like to take a six-question quiz about inheritance, behavior, and environmental conditions?</p>'+
-    '<p class="helper" style="margin:-8px 0 12px;">The quiz is optional. If you take it, your questions, responses, feedback, and score will be added to your Investigation Journal.</p>'+
-    '<div class="card">'+toggle+'</div>'+
-    body+
-    navRow({nextLabel:'Finish the case', nogate:true});
+    '<div class="card">'+
+      '<p class="page-lead" style="margin-top:0;">Would you like to take a six-question quiz about inheritance, behavior, and environmental conditions?</p>'+
+      '<p class="helper" style="margin:-4px 0 12px;">The quiz is optional. If you take it, your questions, responses, feedback, and score will be added to your Investigation Journal.</p>'+
+      toggle+
+    '</div>'+
+    body;
 }
 function quizBodyHtml(){
   if(state.quiz.completed){
@@ -2431,7 +2413,7 @@ function quizChoose(value){
   recordInteractionEncounter('quiz:'+value);
   logEvent('quiz-choice',{choice:value});
   saveState();
-  renderQuiz();
+  renderCompleteQuizArea();
   renderJournalDrawer();
 }
 function quizAnswer(qid,index){
@@ -2445,7 +2427,7 @@ function quizAnswer(qid,index){
   recordInteractionEncounter('quiz-answer:'+qid);
   logEvent('quiz-answer',{q:qid,idx:index,previous:previous==null?null:previous});
   saveState();
-  renderQuiz();
+  renderCompleteQuizArea();
   renderJournalDrawer();
 }
 function submitQuiz(){
@@ -2463,7 +2445,7 @@ function submitQuiz(){
   state.quiz.started=true;
   logEvent('quiz-submit',{score:score});
   saveState();
-  renderQuiz();
+  renderCompleteQuizArea();
   renderJournalDrawer();
   var heading=el('quizResultsHeading');
   if(heading) heading.focus();
@@ -2479,7 +2461,6 @@ function renderComplete(){
     logEvent('lesson-complete',{});
     saveState();
   }
-  var quizLabel=state.quiz.completed?'Review Optional Quiz':'Take Optional Quiz';
   el('section-12-complete').innerHTML =
     '<div class="card card--midnight card--pad-lg" style="text-align:center;">'+
       '<div class="badge">'+assetMarkup('logo','Genetica Club logo','asset--wide')+'</div>'+
@@ -2508,14 +2489,15 @@ function renderComplete(){
       '<p style="color:#D7E0F2;">You showed that Lyra’s <b>inherited</b> blonde hair was affected by her <b>behavior</b> (frequent swimming) and an <b>environmental condition</b> (copper in some pool water) — an argument built entirely from evidence.</p>'+
       '<div class="completion-actions">'+
         '<button class="btn btn--ghost" type="button" data-open-journal>View Journal</button>'+
-        '<button class="btn btn--gold" type="button" data-export>Export Journal</button>'+
-        '<button class="btn btn--primary" type="button" data-go-section="section-11-quiz">'+esc(quizLabel)+'</button>'+
-        '<button class="btn btn--ghost" type="button" data-go-section="section-10-report">Review Final Report</button>'+
       '</div>'+
+    '</div>'+
+    '<div class="card"><p class="eyebrow">Optional standards quiz</p>'+
+      '<div id="completeQuizArea"></div>'+
     '</div>'+
     '<div class="card"><p class="eyebrow">Review your work</p>'+
       '<p class="helper">Open <b>View Journal</b> to review every encountered decision, investigation, response, recommendation, reflection, and optional quiz result.</p>'+
     '</div>';
+  renderCompleteQuizArea();
 }
 </script>
 <script>

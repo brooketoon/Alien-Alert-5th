@@ -382,10 +382,22 @@ table.data .flag{font-weight:700;color:var(--sea-dark);}
    STORIES IN SCIENCE CONSISTENCY RETROFIT — TECHNICAL SHELL ONLY
    ========================================================================== */
 :root{
-  --lesson-content-max:800px;
+  --lesson-content-max:900px;
+  --lesson-media-max:1200px;
 }
 .progress-track,.code-chip{display:none!important;}
 .container,.foot{max-width:var(--lesson-content-max);}
+/* Media breakout: lets a hero image or interactive embed run wider than
+   the reading column while staying centered on the viewport. */
+.lesson-media-wide{
+  width:100vw;
+  max-width:var(--lesson-media-max);
+  margin-left:50%;
+  transform:translateX(-50%);
+  box-sizing:border-box;
+  padding-left:16px;
+  padding-right:16px;
+}
 .app-header__inner{max-width:1400px;}
 body.launch-mode .header-actions{display:none;}
 .header-actions{flex-wrap:nowrap;}
